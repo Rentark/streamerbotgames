@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "dependencies": {
+    "@google/genai": "^1.46.0",
+    "@streamerbot/client": "^1.12.1",
+    "better-sqlite3": "^12.6.2",
+    "winston": "^3.17.0",
+    "ws": "^8.18.3"
+  }
+}
