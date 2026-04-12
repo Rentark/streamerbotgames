@@ -55,6 +55,23 @@ export function initializeDatabase() {
 
       CREATE INDEX IF NOT EXISTS idx_knocks_total
       ON knocks(target_id, count DESC);
+
+      CREATE TABLE IF NOT EXISTS cosmos_players (
+      username    TEXT    PRIMARY KEY,
+      stardust    INTEGER NOT NULL DEFAULT 500,
+      level       INTEGER NOT NULL DEFAULT 1,
+      xp          INTEGER NOT NULL DEFAULT 0,
+      base_luck   REAL    NOT NULL DEFAULT 1.0,
+      shield      INTEGER NOT NULL DEFAULT 0,
+      last_daily  INTEGER NOT NULL DEFAULT 0,
+      created_at  INTEGER NOT NULL
+      );
+ 
+      CREATE INDEX IF NOT EXISTS idx_cosmos_stardust
+      ON cosmos_players(stardust DESC);
+ 
+      CREATE INDEX IF NOT EXISTS idx_cosmos_level
+      ON cosmos_players(level DESC, xp DESC);
     `);
 
     logger.info('Database initialized successfully');

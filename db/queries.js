@@ -59,3 +59,44 @@ export const getTotalKnocksReceived = db.prepare(`
   FROM knocks
   WHERE target_id = ?
 `);
+
+export const getPlayer = db.prepare(`
+  SELECT * FROM cosmos_players WHERE username = ?
+`);
+ 
+export const createPlayer = db.prepare(`
+  INSERT OR IGNORE INTO cosmos_players
+    (username, stardust, level, xp, base_luck, shield, last_daily, created_at)
+  VALUES (?, 500, 1, 0, 1.0, 0, 0, ?)
+`);
+ 
+/**
+ * Full player update — always pass all fields.
+ * Parameter order: stardust, level, xp, base_luck, shield, last_daily, username
+ */
+export const updatePlayer = db.prepare(`
+  UPDATE cosmos_players
+  SET stardust   = ?,
+      level      = ?,
+      xp         = ?,
+      base_luck  = ?,
+      shield     = ?,
+      last_daily = ?
+  WHERE username = ?
+`);
+ 
+// ── Leaderboards ─────────────────────────────────────────────────────────────
+ 
+export const getTopByStardust = db.prepare(`
+  SELECT username, stardust, level
+  FROM cosmos_players
+  ORDER BY stardust DESC
+  LIMIT 10
+`);
+ 
+export const getTopByLevel = db.prepare(`
+  SELECT username, level, xp, stardust
+  FROM cosmos_players
+  ORDER BY level DESC, xp DESC
+  LIMIT 10
+`);

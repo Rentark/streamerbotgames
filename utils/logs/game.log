@@ -1,0 +1,1173 @@
+2026-04-12T18:42:37.032Z [INFO]: Initializing database | meta: { dbPath: 'E:\\Projects\\Streamer.bot-x64-0.2.8\\streamerbotgames\\bot.db',
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]: [ { dbPath: 'E:\\Projects\\Streamer.bot-x64-0.2.8\\streamerbotgames\\bot.db' } ],
+  [Symbol(message)]:
+   '{"dbPath":"E:\\\\Projects\\\\Streamer.bot-x64-0.2.8\\\\streamerbotgames\\\\bot.db","level":"info","message":"Initializing database"}' }
+2026-04-12T18:42:37.041Z [INFO]: Database initialized successfully
+2026-04-12T18:42:37.116Z [INFO]: Starting game application...
+2026-04-12T18:42:37.117Z [INFO]: Connecting KnockGame to TwitchChatMonitor...
+2026-04-12T18:42:37.117Z [INFO]: Registering game: knockgame-1776019357117-brdb9gd9i
+2026-04-12T18:42:37.118Z [INFO]: Connecting to Streamer.bot...
+2026-04-12T18:42:37.119Z [INFO]: Game controller registered | meta: { gameId: 'knockgame-1776019357117-brdb9gd9i',
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]: [ { gameId: 'knockgame-1776019357117-brdb9gd9i' } ],
+  [Symbol(message)]: '{"gameId":"knockgame-1776019357117-brdb9gd9i","level":"info","message":"Game controller registered"}' }
+2026-04-12T18:42:37.120Z [INFO]: KnockGame registered and running
+2026-04-12T18:42:37.120Z [INFO]: KnockGame started and monitoring chat
+2026-04-12T18:42:37.120Z [INFO]: Connecting RetypeWordGame to TwitchChatMonitor...
+2026-04-12T18:42:37.120Z [INFO]: Registering game: retypeword-1776019357120-6z7k05nrw
+2026-04-12T18:42:37.121Z [INFO]: RetypeWordGame registered and running
+2026-04-12T18:42:37.121Z [INFO]: RetypeWordGame started and monitoring chat
+2026-04-12T18:42:37.121Z [INFO]: Connecting CosmosGame to TwitchChatMonitor...
+2026-04-12T18:42:37.121Z [INFO]: Registering game: cosmos-1776019357121-97vqqyizq
+2026-04-12T18:42:37.124Z [INFO]: CosmosGame registered and running
+2026-04-12T18:42:37.125Z [INFO]: CosmosGame started and monitoring chat
+2026-04-12T18:42:37.134Z [INFO]: Application ready.
+2026-04-12T18:42:37.140Z [INFO]: 🛂 Control server started on http://127.0.0.1:3001
+2026-04-12T18:42:37.177Z [INFO]: Connected to Streamer.bot via TwitchChatMonitor
+2026-04-12T18:42:37.177Z [INFO]: KnockGame connected to Streamer.bot via TwitchChatMonitor
+2026-04-12T18:42:37.178Z [INFO]: RetypeWordGame connected to Streamer.bot via TwitchChatMonitor
+2026-04-12T18:42:37.178Z [INFO]: CosmosGame connected to Streamer.bot
+2026-04-12T18:42:38.961Z [INFO]: Received SIGINT, stopping games...
+2026-04-12T18:42:47.357Z [INFO]: Initializing database | meta: { dbPath: 'E:\\Projects\\Streamer.bot-x64-0.2.8\\streamerbotgames\\bot.db',
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]: [ { dbPath: 'E:\\Projects\\Streamer.bot-x64-0.2.8\\streamerbotgames\\bot.db' } ],
+  [Symbol(message)]:
+   '{"dbPath":"E:\\\\Projects\\\\Streamer.bot-x64-0.2.8\\\\streamerbotgames\\\\bot.db","level":"info","message":"Initializing database"}' }
+2026-04-12T18:42:47.364Z [INFO]: Database initialized successfully
+2026-04-12T18:42:47.436Z [INFO]: Starting game application...
+2026-04-12T18:42:47.436Z [INFO]: Connecting KnockGame to TwitchChatMonitor...
+2026-04-12T18:42:47.437Z [INFO]: Registering game: knockgame-1776019367436-qsxxcuua4
+2026-04-12T18:42:47.437Z [INFO]: Connecting to Streamer.bot...
+2026-04-12T18:42:47.439Z [INFO]: Game controller registered | meta: { gameId: 'knockgame-1776019367436-qsxxcuua4',
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]: [ { gameId: 'knockgame-1776019367436-qsxxcuua4' } ],
+  [Symbol(message)]: '{"gameId":"knockgame-1776019367436-qsxxcuua4","level":"info","message":"Game controller registered"}' }
+2026-04-12T18:42:47.439Z [INFO]: KnockGame registered and running
+2026-04-12T18:42:47.439Z [INFO]: KnockGame started and monitoring chat
+2026-04-12T18:42:47.440Z [INFO]: Connecting RetypeWordGame to TwitchChatMonitor...
+2026-04-12T18:42:47.440Z [INFO]: Registering game: retypeword-1776019367439-a3zx9jz4k
+2026-04-12T18:42:47.440Z [INFO]: RetypeWordGame registered and running
+2026-04-12T18:42:47.440Z [INFO]: RetypeWordGame started and monitoring chat
+2026-04-12T18:42:47.440Z [INFO]: Connecting CosmosGame to TwitchChatMonitor...
+2026-04-12T18:42:47.440Z [INFO]: Registering game: cosmos-1776019367440-ae9mm5fdn
+2026-04-12T18:42:47.443Z [INFO]: CosmosGame registered and running
+2026-04-12T18:42:47.443Z [INFO]: CosmosGame started and monitoring chat
+2026-04-12T18:42:47.450Z [INFO]: Application ready.
+2026-04-12T18:42:47.457Z [INFO]: 🛂 Control server started on http://127.0.0.1:3001
+2026-04-12T18:42:47.469Z [INFO]: Connected to Streamer.bot via TwitchChatMonitor
+2026-04-12T18:42:47.469Z [INFO]: KnockGame connected to Streamer.bot via TwitchChatMonitor
+2026-04-12T18:42:47.469Z [INFO]: RetypeWordGame connected to Streamer.bot via TwitchChatMonitor
+2026-04-12T18:42:47.469Z [INFO]: CosmosGame connected to Streamer.bot
+2026-04-12T18:43:09.088Z [INFO]: Sending message to Twitch 2026-04-12T18:43:09.087Z /me @renkairen, мінімальна ставка: 10 ✨
+2026-04-12T18:43:09.098Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019389089-2877639537',
+     args:
+      { rawInput: '/me @renkairen, мінімальна ставка: 10 ✨',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '488256e7-2683-4e7b-a563-109fff46779d',
+        actionQueuedAt: '2026-04-12T21:43:09.0943602+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019389089-2877639537',
+          args:
+           { rawInput: '/me @renkairen, мінімальна ставка: 10 ✨',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '488256e7-2683-4e7b-a563-109fff46779d',
+             actionQueuedAt: '2026-04-12T21:43:09.0943602+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:43:09.0943602+03:00","rawInput":"/me @renkairen, мінімальна ставка: 10 ✨","runningActionId":"488256e7-2683-4e7b-a563-109fff46779d"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019389089-2877639537","status":"ok"}}' }
+2026-04-12T18:43:15.047Z [INFO]: Sending message to Twitch 2026-04-12T18:43:15.045Z /me 🌌🌠🌌 @renkairen 🌌 ТУМАННІСТЬ! Чудовий виграш! Ставка: 100 ✨ → +500 ✨ | Баланс: 900 ✨ (+25 XP)
+2026-04-12T18:43:15.060Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019395047-2125055143',
+     args:
+      { rawInput: '/me 🌌🌠🌌 @renkairen 🌌 ТУМАННІСТЬ! Чудовий виграш! Ставка: 100 ✨ → +500 ✨ | Баланс: 900 ✨ (+25 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '78811f12-13fa-490c-825c-9362ad80890f',
+        actionQueuedAt: '2026-04-12T21:43:15.0487065+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019395047-2125055143',
+          args:
+           { rawInput: '/me 🌌🌠🌌 @renkairen 🌌 ТУМАННІСТЬ! Чудовий виграш! Ставка: 100 ✨ → +500 ✨ | Баланс: 900 ✨ (+25 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '78811f12-13fa-490c-825c-9362ad80890f',
+             actionQueuedAt: '2026-04-12T21:43:15.0487065+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:43:15.0487065+03:00","rawInput":"/me 🌌🌠🌌 @renkairen 🌌 ТУМАННІСТЬ! Чудовий виграш! Ставка: 100 ✨ → +500 ✨ | Баланс: 900 ✨ (+25 XP)","runningActionId":"78811f12-13fa-490c-825c-9362ad80890f"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019395047-2125055143","status":"ok"}}' }
+2026-04-12T18:43:27.553Z [INFO]: Sending message to Twitch 2026-04-12T18:43:27.552Z /me ✨💫✨ @renkairen ✨ НАДНОВА! Вражаючий виграш! Ставка: 100 ✨ → +1000 ✨ | Баланс: 1800 ✨ (+50 XP)
+2026-04-12T18:43:27.560Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019407553-3673267776',
+     args:
+      { rawInput: '/me ✨💫✨ @renkairen ✨ НАДНОВА! Вражаючий виграш! Ставка: 100 ✨ → +1000 ✨ | Баланс: 1800 ✨ (+50 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'b94654a4-040a-4937-a796-93681e56f47a',
+        actionQueuedAt: '2026-04-12T21:43:27.5549663+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019407553-3673267776',
+          args:
+           { rawInput: '/me ✨💫✨ @renkairen ✨ НАДНОВА! Вражаючий виграш! Ставка: 100 ✨ → +1000 ✨ | Баланс: 1800 ✨ (+50 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'b94654a4-040a-4937-a796-93681e56f47a',
+             actionQueuedAt: '2026-04-12T21:43:27.5549663+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:43:27.5549663+03:00","rawInput":"/me ✨💫✨ @renkairen ✨ НАДНОВА! Вражаючий виграш! Ставка: 100 ✨ → +1000 ✨ | Баланс: 1800 ✨ (+50 XP)","runningActionId":"b94654a4-040a-4937-a796-93681e56f47a"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019407553-3673267776","status":"ok"}}' }
+2026-04-12T18:43:40.536Z [INFO]: Sending message to Twitch 2026-04-12T18:43:40.535Z /me 💨🌑💨 @renkairen Порожній простір... Ставка: 100 ✨ | Баланс: 1700 ✨ (+2 XP)
+2026-04-12T18:43:40.539Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019420536-1782254739',
+     args:
+      { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 100 ✨ | Баланс: 1700 ✨ (+2 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '72122909-0496-4fd0-8fcb-4ee995dec4be',
+        actionQueuedAt: '2026-04-12T21:43:40.5378879+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019420536-1782254739',
+          args:
+           { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 100 ✨ | Баланс: 1700 ✨ (+2 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '72122909-0496-4fd0-8fcb-4ee995dec4be',
+             actionQueuedAt: '2026-04-12T21:43:40.5378879+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:43:40.5378879+03:00","rawInput":"/me 💨🌑💨 @renkairen Порожній простір... Ставка: 100 ✨ | Баланс: 1700 ✨ (+2 XP)","runningActionId":"72122909-0496-4fd0-8fcb-4ee995dec4be"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019420536-1782254739","status":"ok"}}' }
+2026-04-12T18:43:46.092Z [INFO]: Sending message to Twitch 2026-04-12T18:43:46.091Z /me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 100 ✨ → +200 ✨ | Баланс: 1800 ✨ (+10 XP)
+2026-04-12T18:43:46.101Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019426092-2903038243',
+     args:
+      { rawInput: '/me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 100 ✨ → +200 ✨ | Баланс: 1800 ✨ (+10 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'cda67013-0070-4599-982b-0e0b7c3edf4e',
+        actionQueuedAt: '2026-04-12T21:43:46.0933277+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019426092-2903038243',
+          args:
+           { rawInput: '/me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 100 ✨ → +200 ✨ | Баланс: 1800 ✨ (+10 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'cda67013-0070-4599-982b-0e0b7c3edf4e',
+             actionQueuedAt: '2026-04-12T21:43:46.0933277+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:43:46.0933277+03:00","rawInput":"/me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 100 ✨ → +200 ✨ | Баланс: 1800 ✨ (+10 XP)","runningActionId":"cda67013-0070-4599-982b-0e0b7c3edf4e"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019426092-2903038243","status":"ok"}}' }
+2026-04-12T18:43:52.004Z [DEBUG]: CosmosGame: rate limit hit | meta: { username: 'renkairen',
+  count: 3,
+  maxUses: 3,
+  [Symbol(level)]: 'debug',
+  [Symbol(splat)]: [ { username: 'renkairen', count: 3, maxUses: 3 } ],
+  [Symbol(message)]: '{"count":3,"level":"debug","maxUses":3,"message":"CosmosGame: rate limit hit","username":"renkairen"}' }
+2026-04-12T18:43:52.006Z [INFO]: Sending message to Twitch 2026-04-12T18:43:52.005Z /me @renkairen, не так швидко, космонавте! 🚀
+2026-04-12T18:43:52.008Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019432006-505911720',
+     args:
+      { rawInput: '/me @renkairen, не так швидко, космонавте! 🚀',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'e98a3ff0-144e-4ca0-9fc6-8ef16076d6ee',
+        actionQueuedAt: '2026-04-12T21:43:52.007145+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019432006-505911720',
+          args:
+           { rawInput: '/me @renkairen, не так швидко, космонавте! 🚀',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'e98a3ff0-144e-4ca0-9fc6-8ef16076d6ee',
+             actionQueuedAt: '2026-04-12T21:43:52.007145+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:43:52.007145+03:00","rawInput":"/me @renkairen, не так швидко, космонавте! 🚀","runningActionId":"e98a3ff0-144e-4ca0-9fc6-8ef16076d6ee"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019432006-505911720","status":"ok"}}' }
+2026-04-12T18:43:56.274Z [DEBUG]: CosmosGame: rate limit hit | meta: { username: 'renkairen',
+  count: 3,
+  maxUses: 3,
+  [Symbol(level)]: 'debug',
+  [Symbol(splat)]: [ { username: 'renkairen', count: 3, maxUses: 3 } ],
+  [Symbol(message)]: '{"count":3,"level":"debug","maxUses":3,"message":"CosmosGame: rate limit hit","username":"renkairen"}' }
+2026-04-12T18:44:31.643Z [DEBUG]: CosmosGame: rate limit hit | meta: { username: 'renkairen',
+  count: 2,
+  maxUses: 2,
+  [Symbol(level)]: 'debug',
+  [Symbol(splat)]: [ { username: 'renkairen', count: 2, maxUses: 2 } ],
+  [Symbol(message)]: '{"count":2,"level":"debug","maxUses":2,"message":"CosmosGame: rate limit hit","username":"renkairen"}' }
+2026-04-12T18:44:31.646Z [INFO]: Sending message to Twitch 2026-04-12T18:44:31.643Z /me @renkairen, не так швидко, космонавте! 🚀
+2026-04-12T18:44:31.649Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019471646-1108488370',
+     args:
+      { rawInput: '/me @renkairen, не так швидко, космонавте! 🚀',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '09c24ef7-1625-4cd1-993c-901ce2e85737',
+        actionQueuedAt: '2026-04-12T21:44:31.6473189+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019471646-1108488370',
+          args:
+           { rawInput: '/me @renkairen, не так швидко, космонавте! 🚀',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '09c24ef7-1625-4cd1-993c-901ce2e85737',
+             actionQueuedAt: '2026-04-12T21:44:31.6473189+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:44:31.6473189+03:00","rawInput":"/me @renkairen, не так швидко, космонавте! 🚀","runningActionId":"09c24ef7-1625-4cd1-993c-901ce2e85737"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019471646-1108488370","status":"ok"}}' }
+2026-04-12T18:44:45.483Z [INFO]: Sending message to Twitch 2026-04-12T18:44:45.483Z /me ⚔️ @renkairen кидає виклик @marseille_cat на 100 ✨! @marseille_cat, напишіть !accept або !decline протягом 60 сек
+2026-04-12T18:44:45.502Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019485484-3249715526',
+     args:
+      { rawInput: '/me ⚔️ @renkairen кидає виклик @marseille_cat на 100 ✨! @marseille_cat, напишіть !accept або !decline протягом 60 сек',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '0dcaf70a-d42c-4faa-bf7d-7a0b314f4609',
+        actionQueuedAt: '2026-04-12T21:44:45.4845433+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019485484-3249715526',
+          args:
+           { rawInput: '/me ⚔️ @renkairen кидає виклик @marseille_cat на 100 ✨! @marseille_cat, напишіть !accept або !decline протягом 60 сек',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '0dcaf70a-d42c-4faa-bf7d-7a0b314f4609',
+             actionQueuedAt: '2026-04-12T21:44:45.4845433+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:44:45.4845433+03:00","rawInput":"/me ⚔️ @renkairen кидає виклик @marseille_cat на 100 ✨! @marseille_cat, напишіть !accept або !decline протягом 60 сек","runningActionId":"0dcaf70a-d42c-4faa-bf7d-7a0b314f4609"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019485484-3249715526","status":"ok"}}' }
+2026-04-12T18:44:58.685Z [INFO]: Sending message to Twitch 2026-04-12T18:44:58.685Z /me ⚔️ @marseille_cat перемагає @renkairen і забирає 100 ✨! Баланс: 600 ✨ (+20 XP)
+2026-04-12T18:44:58.688Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019498685-913637910',
+     args:
+      { rawInput: '/me ⚔️ @marseille_cat перемагає @renkairen і забирає 100 ✨! Баланс: 600 ✨ (+20 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '5b0d281d-6c8f-4bf4-9981-c160abc460bb',
+        actionQueuedAt: '2026-04-12T21:44:58.6868128+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019498685-913637910',
+          args:
+           { rawInput: '/me ⚔️ @marseille_cat перемагає @renkairen і забирає 100 ✨! Баланс: 600 ✨ (+20 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '5b0d281d-6c8f-4bf4-9981-c160abc460bb',
+             actionQueuedAt: '2026-04-12T21:44:58.6868128+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:44:58.6868128+03:00","rawInput":"/me ⚔️ @marseille_cat перемагає @renkairen і забирає 100 ✨! Баланс: 600 ✨ (+20 XP)","runningActionId":"5b0d281d-6c8f-4bf4-9981-c160abc460bb"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019498685-913637910","status":"ok"}}' }
+2026-04-12T18:45:40.671Z [INFO]: Sending message to Twitch 2026-04-12T18:45:40.670Z /me @renkairen 🌟 Відкриває космічний ящик... 🎉 ДЖЕКПОТ ЯЩИКА: +1000 ✨! Баланс: 2600 ✨
+2026-04-12T18:45:40.679Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019540671-2015789250',
+     args:
+      { rawInput: '/me @renkairen 🌟 Відкриває космічний ящик... 🎉 ДЖЕКПОТ ЯЩИКА: +1000 ✨! Баланс: 2600 ✨',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'b3102021-c311-4990-b6c0-6da0e2e0706b',
+        actionQueuedAt: '2026-04-12T21:45:40.6726297+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019540671-2015789250',
+          args:
+           { rawInput: '/me @renkairen 🌟 Відкриває космічний ящик... 🎉 ДЖЕКПОТ ЯЩИКА: +1000 ✨! Баланс: 2600 ✨',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'b3102021-c311-4990-b6c0-6da0e2e0706b',
+             actionQueuedAt: '2026-04-12T21:45:40.6726297+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:45:40.6726297+03:00","rawInput":"/me @renkairen 🌟 Відкриває космічний ящик... 🎉 ДЖЕКПОТ ЯЩИКА: +1000 ✨! Баланс: 2600 ✨","runningActionId":"b3102021-c311-4990-b6c0-6da0e2e0706b"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019540671-2015789250","status":"ok"}}' }
+2026-04-12T18:45:54.145Z [INFO]: Sending message to Twitch 2026-04-12T18:45:54.144Z /me @renkairen 🌅 Щоденна нагорода: +179 ✨! Баланс: 2779 ✨
+2026-04-12T18:45:54.148Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019554145-2810050732',
+     args:
+      { rawInput: '/me @renkairen 🌅 Щоденна нагорода: +179 ✨! Баланс: 2779 ✨',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '7226e7c2-8fa5-4384-bed6-49620d36a491',
+        actionQueuedAt: '2026-04-12T21:45:54.1453633+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019554145-2810050732',
+          args:
+           { rawInput: '/me @renkairen 🌅 Щоденна нагорода: +179 ✨! Баланс: 2779 ✨',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '7226e7c2-8fa5-4384-bed6-49620d36a491',
+             actionQueuedAt: '2026-04-12T21:45:54.1453633+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:45:54.1453633+03:00","rawInput":"/me @renkairen 🌅 Щоденна нагорода: +179 ✨! Баланс: 2779 ✨","runningActionId":"7226e7c2-8fa5-4384-bed6-49620d36a491"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019554145-2810050732","status":"ok"}}' }
+2026-04-12T18:46:02.601Z [INFO]: Sending message to Twitch 2026-04-12T18:46:02.601Z /me @marseille_cat 🌅 Щоденна нагорода: +96 ✨! Баланс: 696 ✨
+2026-04-12T18:46:02.605Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019562602-1752235224',
+     args:
+      { rawInput: '/me @marseille_cat 🌅 Щоденна нагорода: +96 ✨! Баланс: 696 ✨',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'ab569d31-6dc7-43bd-91b1-f869e43d8211',
+        actionQueuedAt: '2026-04-12T21:46:02.6031391+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019562602-1752235224',
+          args:
+           { rawInput: '/me @marseille_cat 🌅 Щоденна нагорода: +96 ✨! Баланс: 696 ✨',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'ab569d31-6dc7-43bd-91b1-f869e43d8211',
+             actionQueuedAt: '2026-04-12T21:46:02.6031391+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:46:02.6031391+03:00","rawInput":"/me @marseille_cat 🌅 Щоденна нагорода: +96 ✨! Баланс: 696 ✨","runningActionId":"ab569d31-6dc7-43bd-91b1-f869e43d8211"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019562602-1752235224","status":"ok"}}' }
+2026-04-12T18:46:17.210Z [INFO]: Sending message to Twitch 2026-04-12T18:46:17.210Z /me @marseille_cat | Рівень 1 | Удача: 1.00x | XP: 30/120
+2026-04-12T18:46:17.213Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019577210-3433312445',
+     args:
+      { rawInput: '/me @marseille_cat | Рівень 1 | Удача: 1.00x | XP: 30/120',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '4ba271d9-1565-4468-9a90-a291d7d85b2b',
+        actionQueuedAt: '2026-04-12T21:46:17.211698+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019577210-3433312445',
+          args:
+           { rawInput: '/me @marseille_cat | Рівень 1 | Удача: 1.00x | XP: 30/120',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '4ba271d9-1565-4468-9a90-a291d7d85b2b',
+             actionQueuedAt: '2026-04-12T21:46:17.211698+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:46:17.211698+03:00","rawInput":"/me @marseille_cat | Рівень 1 | Удача: 1.00x | XP: 30/120","runningActionId":"4ba271d9-1565-4468-9a90-a291d7d85b2b"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019577210-3433312445","status":"ok"}}' }
+2026-04-12T18:46:23.122Z [INFO]: Sending message to Twitch 2026-04-12T18:46:23.121Z /me @renkairen | Рівень 1 | Удача: 1.00x | XP: 112/120
+2026-04-12T18:46:23.126Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019583122-3065428889',
+     args:
+      { rawInput: '/me @renkairen | Рівень 1 | Удача: 1.00x | XP: 112/120',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '0be5bfa8-e489-49cd-bbab-02a9b8a12b7f',
+        actionQueuedAt: '2026-04-12T21:46:23.1233617+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019583122-3065428889',
+          args:
+           { rawInput: '/me @renkairen | Рівень 1 | Удача: 1.00x | XP: 112/120',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '0be5bfa8-e489-49cd-bbab-02a9b8a12b7f',
+             actionQueuedAt: '2026-04-12T21:46:23.1233617+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:46:23.1233617+03:00","rawInput":"/me @renkairen | Рівень 1 | Удача: 1.00x | XP: 112/120","runningActionId":"0be5bfa8-e489-49cd-bbab-02a9b8a12b7f"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019583122-3065428889","status":"ok"}}' }
+2026-04-12T18:46:33.489Z [INFO]: Sending message to Twitch 2026-04-12T18:46:33.488Z /me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3279 ✨ (+5 XP)
+2026-04-12T18:46:33.492Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019593489-4238184560',
+     args:
+      { rawInput: '/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3279 ✨ (+5 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '35ea6f4b-5927-450d-89c7-8eef65936f41',
+        actionQueuedAt: '2026-04-12T21:46:33.4905061+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019593489-4238184560',
+          args:
+           { rawInput: '/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3279 ✨ (+5 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '35ea6f4b-5927-450d-89c7-8eef65936f41',
+             actionQueuedAt: '2026-04-12T21:46:33.4905061+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:46:33.4905061+03:00","rawInput":"/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3279 ✨ (+5 XP)","runningActionId":"35ea6f4b-5927-450d-89c7-8eef65936f41"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019593489-4238184560","status":"ok"}}' }
+2026-04-12T18:47:27.759Z [INFO]: Sending message to Twitch 2026-04-12T18:47:27.759Z /me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3779 ✨ (+5 XP) 🎉 РІВЕНЬ 2! Рівень 2!
+2026-04-12T18:47:27.764Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019647759-3526846179',
+     args:
+      { rawInput:
+         '/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3779 ✨ (+5 XP) 🎉 РІВЕНЬ 2! Рівень 2!',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '94574437-d52a-4e12-9437-2db8816320dc',
+        actionQueuedAt: '2026-04-12T21:47:27.7610849+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019647759-3526846179',
+          args:
+           { rawInput:
+              '/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3779 ✨ (+5 XP) 🎉 РІВЕНЬ 2! Рівень 2!',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '94574437-d52a-4e12-9437-2db8816320dc',
+             actionQueuedAt: '2026-04-12T21:47:27.7610849+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:47:27.7610849+03:00","rawInput":"/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3779 ✨ (+5 XP) 🎉 РІВЕНЬ 2! Рівень 2!","runningActionId":"94574437-d52a-4e12-9437-2db8816320dc"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019647759-3526846179","status":"ok"}}' }
+2026-04-12T18:47:32.644Z [INFO]: Sending message to Twitch 2026-04-12T18:47:32.644Z /me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 1000 ✨ → +2000 ✨ | Баланс: 4779 ✨ (+10 XP)
+2026-04-12T18:47:32.647Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019652644-2263365990',
+     args:
+      { rawInput: '/me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 1000 ✨ → +2000 ✨ | Баланс: 4779 ✨ (+10 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'e2041415-2695-4449-ba32-ff2042a3ffaf',
+        actionQueuedAt: '2026-04-12T21:47:32.6449555+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019652644-2263365990',
+          args:
+           { rawInput: '/me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 1000 ✨ → +2000 ✨ | Баланс: 4779 ✨ (+10 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'e2041415-2695-4449-ba32-ff2042a3ffaf',
+             actionQueuedAt: '2026-04-12T21:47:32.6449555+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:47:32.6449555+03:00","rawInput":"/me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 1000 ✨ → +2000 ✨ | Баланс: 4779 ✨ (+10 XP)","runningActionId":"e2041415-2695-4449-ba32-ff2042a3ffaf"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019652644-2263365990","status":"ok"}}' }
+2026-04-12T18:47:40.057Z [INFO]: Sending message to Twitch 2026-04-12T18:47:40.057Z /me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 3779 ✨ (+2 XP)
+2026-04-12T18:47:40.062Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019660058-1645142473',
+     args:
+      { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 3779 ✨ (+2 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '801edb71-bad4-44e2-b5d9-e81b94a074e7',
+        actionQueuedAt: '2026-04-12T21:47:40.0589802+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019660058-1645142473',
+          args:
+           { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 3779 ✨ (+2 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '801edb71-bad4-44e2-b5d9-e81b94a074e7',
+             actionQueuedAt: '2026-04-12T21:47:40.0589802+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:47:40.0589802+03:00","rawInput":"/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 3779 ✨ (+2 XP)","runningActionId":"801edb71-bad4-44e2-b5d9-e81b94a074e7"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019660058-1645142473","status":"ok"}}' }
+2026-04-12T18:47:49.502Z [DEBUG]: CosmosGame: rate limit hit | meta: { username: 'renkairen',
+  count: 3,
+  maxUses: 3,
+  [Symbol(level)]: 'debug',
+  [Symbol(splat)]: [ { username: 'renkairen', count: 3, maxUses: 3 } ],
+  [Symbol(message)]: '{"count":3,"level":"debug","maxUses":3,"message":"CosmosGame: rate limit hit","username":"renkairen"}' }
+2026-04-12T18:47:49.504Z [INFO]: Sending message to Twitch 2026-04-12T18:47:49.502Z /me @renkairen, не так швидко, космонавте! 🚀
+2026-04-12T18:47:49.508Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019669504-2891532295',
+     args:
+      { rawInput: '/me @renkairen, не так швидко, космонавте! 🚀',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '3fd746e2-6415-44d3-8ebd-b680892cff4d',
+        actionQueuedAt: '2026-04-12T21:47:49.5065722+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019669504-2891532295',
+          args:
+           { rawInput: '/me @renkairen, не так швидко, космонавте! 🚀',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '3fd746e2-6415-44d3-8ebd-b680892cff4d',
+             actionQueuedAt: '2026-04-12T21:47:49.5065722+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:47:49.5065722+03:00","rawInput":"/me @renkairen, не так швидко, космонавте! 🚀","runningActionId":"3fd746e2-6415-44d3-8ebd-b680892cff4d"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019669504-2891532295","status":"ok"}}' }
+2026-04-12T18:47:51.986Z [DEBUG]: CosmosGame: rate limit hit | meta: { username: 'renkairen',
+  count: 3,
+  maxUses: 3,
+  [Symbol(level)]: 'debug',
+  [Symbol(splat)]: [ { username: 'renkairen', count: 3, maxUses: 3 } ],
+  [Symbol(message)]: '{"count":3,"level":"debug","maxUses":3,"message":"CosmosGame: rate limit hit","username":"renkairen"}' }
+2026-04-12T18:48:27.091Z [INFO]: Initializing database | meta: { dbPath: 'E:\\Projects\\Streamer.bot-x64-0.2.8\\streamerbotgames\\bot.db',
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]: [ { dbPath: 'E:\\Projects\\Streamer.bot-x64-0.2.8\\streamerbotgames\\bot.db' } ],
+  [Symbol(message)]:
+   '{"dbPath":"E:\\\\Projects\\\\Streamer.bot-x64-0.2.8\\\\streamerbotgames\\\\bot.db","level":"info","message":"Initializing database"}' }
+2026-04-12T18:48:27.099Z [INFO]: Database initialized successfully
+2026-04-12T18:48:27.171Z [INFO]: Starting game application...
+2026-04-12T18:48:27.171Z [INFO]: Connecting KnockGame to TwitchChatMonitor...
+2026-04-12T18:48:27.172Z [INFO]: Registering game: knockgame-1776019707171-5vq9jz2dp
+2026-04-12T18:48:27.172Z [INFO]: Connecting to Streamer.bot...
+2026-04-12T18:48:27.174Z [INFO]: Game controller registered | meta: { gameId: 'knockgame-1776019707171-5vq9jz2dp',
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]: [ { gameId: 'knockgame-1776019707171-5vq9jz2dp' } ],
+  [Symbol(message)]: '{"gameId":"knockgame-1776019707171-5vq9jz2dp","level":"info","message":"Game controller registered"}' }
+2026-04-12T18:48:27.174Z [INFO]: KnockGame registered and running
+2026-04-12T18:48:27.175Z [INFO]: KnockGame started and monitoring chat
+2026-04-12T18:48:27.175Z [INFO]: Connecting RetypeWordGame to TwitchChatMonitor...
+2026-04-12T18:48:27.175Z [INFO]: Registering game: retypeword-1776019707175-sx0dhvz75
+2026-04-12T18:48:27.175Z [INFO]: RetypeWordGame registered and running
+2026-04-12T18:48:27.176Z [INFO]: RetypeWordGame started and monitoring chat
+2026-04-12T18:48:27.176Z [INFO]: Connecting CosmosGame to TwitchChatMonitor...
+2026-04-12T18:48:27.176Z [INFO]: Registering game: cosmos-1776019707176-2t2443gzn
+2026-04-12T18:48:27.179Z [INFO]: CosmosGame registered and running
+2026-04-12T18:48:27.179Z [INFO]: CosmosGame started and monitoring chat
+2026-04-12T18:48:27.188Z [INFO]: Application ready.
+2026-04-12T18:48:27.196Z [INFO]: 🛂 Control server started on http://127.0.0.1:3001
+2026-04-12T18:48:27.207Z [INFO]: Connected to Streamer.bot via TwitchChatMonitor
+2026-04-12T18:48:27.207Z [INFO]: KnockGame connected to Streamer.bot via TwitchChatMonitor
+2026-04-12T18:48:27.208Z [INFO]: RetypeWordGame connected to Streamer.bot via TwitchChatMonitor
+2026-04-12T18:48:27.208Z [INFO]: CosmosGame connected to Streamer.bot
+2026-04-12T18:48:34.554Z [INFO]: Sending message to Twitch 2026-04-12T18:48:34.554Z /me @renkairen, мінімальна ставка: 10 ✨
+2026-04-12T18:48:34.557Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019714554-2852690742',
+     args:
+      { rawInput: '/me @renkairen, мінімальна ставка: 10 ✨',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '4bfd6172-60b5-44f8-8dcc-3884d3a49f84',
+        actionQueuedAt: '2026-04-12T21:48:34.5554015+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019714554-2852690742',
+          args:
+           { rawInput: '/me @renkairen, мінімальна ставка: 10 ✨',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '4bfd6172-60b5-44f8-8dcc-3884d3a49f84',
+             actionQueuedAt: '2026-04-12T21:48:34.5554015+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:48:34.5554015+03:00","rawInput":"/me @renkairen, мінімальна ставка: 10 ✨","runningActionId":"4bfd6172-60b5-44f8-8dcc-3884d3a49f84"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019714554-2852690742","status":"ok"}}' }
+2026-04-12T18:48:39.828Z [INFO]: Sending message to Twitch 2026-04-12T18:48:39.827Z /me 💨🌑💨 @renkairen Порожній простір... Ставка: 10 ✨ | Баланс: 3769 ✨ (+2 XP)
+2026-04-12T18:48:39.831Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019719828-1899992554',
+     args:
+      { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 10 ✨ | Баланс: 3769 ✨ (+2 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '4a47051c-0309-465d-8dbe-56c960c8b21c',
+        actionQueuedAt: '2026-04-12T21:48:39.8284683+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019719828-1899992554',
+          args:
+           { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 10 ✨ | Баланс: 3769 ✨ (+2 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '4a47051c-0309-465d-8dbe-56c960c8b21c',
+             actionQueuedAt: '2026-04-12T21:48:39.8284683+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:48:39.8284683+03:00","rawInput":"/me 💨🌑💨 @renkairen Порожній простір... Ставка: 10 ✨ | Баланс: 3769 ✨ (+2 XP)","runningActionId":"4a47051c-0309-465d-8dbe-56c960c8b21c"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019719828-1899992554","status":"ok"}}' }
+2026-04-12T18:48:56.245Z [INFO]: Sending message to Twitch 2026-04-12T18:48:56.244Z /me @renkairen, недостатньо зіркового пилу! Баланс: 3769 ✨, потрібно: 5000 ✨ 💸
+2026-04-12T18:48:56.248Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019736245-4095358532',
+     args:
+      { rawInput: '/me @renkairen, недостатньо зіркового пилу! Баланс: 3769 ✨, потрібно: 5000 ✨ 💸',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '1eef06a4-1276-4d9f-bccc-01f1b2bfcc47',
+        actionQueuedAt: '2026-04-12T21:48:56.2461796+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019736245-4095358532',
+          args:
+           { rawInput: '/me @renkairen, недостатньо зіркового пилу! Баланс: 3769 ✨, потрібно: 5000 ✨ 💸',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '1eef06a4-1276-4d9f-bccc-01f1b2bfcc47',
+             actionQueuedAt: '2026-04-12T21:48:56.2461796+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:48:56.2461796+03:00","rawInput":"/me @renkairen, недостатньо зіркового пилу! Баланс: 3769 ✨, потрібно: 5000 ✨ 💸","runningActionId":"1eef06a4-1276-4d9f-bccc-01f1b2bfcc47"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019736245-4095358532","status":"ok"}}' }
+2026-04-12T18:49:03.419Z [INFO]: Sending message to Twitch 2026-04-12T18:49:03.418Z /me 🌌🌠🌌 @renkairen 🌌 ТУМАННІСТЬ! Чудовий виграш! Ставка: 1000 ✨ → +5000 ✨ | Баланс: 7769 ✨ (+25 XP)
+2026-04-12T18:49:03.422Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019743420-101453354',
+     args:
+      { rawInput: '/me 🌌🌠🌌 @renkairen 🌌 ТУМАННІСТЬ! Чудовий виграш! Ставка: 1000 ✨ → +5000 ✨ | Баланс: 7769 ✨ (+25 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'c42ee965-ce2d-4712-8bea-3d9e2a8990f1',
+        actionQueuedAt: '2026-04-12T21:49:03.4200768+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019743420-101453354',
+          args:
+           { rawInput: '/me 🌌🌠🌌 @renkairen 🌌 ТУМАННІСТЬ! Чудовий виграш! Ставка: 1000 ✨ → +5000 ✨ | Баланс: 7769 ✨ (+25 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'c42ee965-ce2d-4712-8bea-3d9e2a8990f1',
+             actionQueuedAt: '2026-04-12T21:49:03.4200768+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:03.4200768+03:00","rawInput":"/me 🌌🌠🌌 @renkairen 🌌 ТУМАННІСТЬ! Чудовий виграш! Ставка: 1000 ✨ → +5000 ✨ | Баланс: 7769 ✨ (+25 XP)","runningActionId":"c42ee965-ce2d-4712-8bea-3d9e2a8990f1"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019743420-101453354","status":"ok"}}' }
+2026-04-12T18:49:07.590Z [INFO]: Sending message to Twitch 2026-04-12T18:49:07.589Z /me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 6769 ✨ (+2 XP)
+2026-04-12T18:49:07.593Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019747590-4266697617',
+     args:
+      { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 6769 ✨ (+2 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'cc62fd2a-0b37-42d3-9c24-1273758613c8',
+        actionQueuedAt: '2026-04-12T21:49:07.5911647+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019747590-4266697617',
+          args:
+           { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 6769 ✨ (+2 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'cc62fd2a-0b37-42d3-9c24-1273758613c8',
+             actionQueuedAt: '2026-04-12T21:49:07.5911647+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:07.5911647+03:00","rawInput":"/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 6769 ✨ (+2 XP)","runningActionId":"cc62fd2a-0b37-42d3-9c24-1273758613c8"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019747590-4266697617","status":"ok"}}' }
+2026-04-12T18:49:09.364Z [INFO]: Sending message to Twitch 2026-04-12T18:49:09.363Z /me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 5769 ✨ (+2 XP)
+2026-04-12T18:49:09.366Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019749364-956406540',
+     args:
+      { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 5769 ✨ (+2 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '106c6dc8-1a6b-4e8f-806b-984eb2c689a9',
+        actionQueuedAt: '2026-04-12T21:49:09.3646819+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019749364-956406540',
+          args:
+           { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 5769 ✨ (+2 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '106c6dc8-1a6b-4e8f-806b-984eb2c689a9',
+             actionQueuedAt: '2026-04-12T21:49:09.3646819+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:09.3646819+03:00","rawInput":"/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 5769 ✨ (+2 XP)","runningActionId":"106c6dc8-1a6b-4e8f-806b-984eb2c689a9"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019749364-956406540","status":"ok"}}' }
+2026-04-12T18:49:10.793Z [INFO]: Sending message to Twitch 2026-04-12T18:49:10.792Z /me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 6269 ✨ (+5 XP)
+2026-04-12T18:49:10.796Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019750793-1919316508',
+     args:
+      { rawInput: '/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 6269 ✨ (+5 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'b70cd133-f91f-4f65-b620-ed086ea8f009',
+        actionQueuedAt: '2026-04-12T21:49:10.7938129+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019750793-1919316508',
+          args:
+           { rawInput: '/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 6269 ✨ (+5 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'b70cd133-f91f-4f65-b620-ed086ea8f009',
+             actionQueuedAt: '2026-04-12T21:49:10.7938129+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:10.7938129+03:00","rawInput":"/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 6269 ✨ (+5 XP)","runningActionId":"b70cd133-f91f-4f65-b620-ed086ea8f009"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019750793-1919316508","status":"ok"}}' }
+2026-04-12T18:49:12.055Z [INFO]: Sending message to Twitch 2026-04-12T18:49:12.053Z /me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 5269 ✨ (+2 XP)
+2026-04-12T18:49:12.059Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019752055-320009507',
+     args:
+      { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 5269 ✨ (+2 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '018cfa2d-c590-4ffd-a94c-81c91c332d4c',
+        actionQueuedAt: '2026-04-12T21:49:12.0550691+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019752055-320009507',
+          args:
+           { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 5269 ✨ (+2 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '018cfa2d-c590-4ffd-a94c-81c91c332d4c',
+             actionQueuedAt: '2026-04-12T21:49:12.0550691+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:12.0550691+03:00","rawInput":"/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 5269 ✨ (+2 XP)","runningActionId":"018cfa2d-c590-4ffd-a94c-81c91c332d4c"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019752055-320009507","status":"ok"}}' }
+2026-04-12T18:49:13.227Z [INFO]: Sending message to Twitch 2026-04-12T18:49:13.227Z /me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 4269 ✨ (+2 XP)
+2026-04-12T18:49:13.230Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019753227-65467250',
+     args:
+      { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 4269 ✨ (+2 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '52f47040-d4e1-427b-b706-0a9de788d37c',
+        actionQueuedAt: '2026-04-12T21:49:13.2275853+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019753227-65467250',
+          args:
+           { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 4269 ✨ (+2 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '52f47040-d4e1-427b-b706-0a9de788d37c',
+             actionQueuedAt: '2026-04-12T21:49:13.2275853+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:13.2275853+03:00","rawInput":"/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 4269 ✨ (+2 XP)","runningActionId":"52f47040-d4e1-427b-b706-0a9de788d37c"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019753227-65467250","status":"ok"}}' }
+2026-04-12T18:49:14.402Z [INFO]: Sending message to Twitch 2026-04-12T18:49:14.401Z /me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 3269 ✨ (+2 XP)
+2026-04-12T18:49:14.404Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019754402-2160134246',
+     args:
+      { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 3269 ✨ (+2 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '4bbd77ea-2c16-4a60-8690-9b5880054406',
+        actionQueuedAt: '2026-04-12T21:49:14.4022512+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019754402-2160134246',
+          args:
+           { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 3269 ✨ (+2 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '4bbd77ea-2c16-4a60-8690-9b5880054406',
+             actionQueuedAt: '2026-04-12T21:49:14.4022512+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:14.4022512+03:00","rawInput":"/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 3269 ✨ (+2 XP)","runningActionId":"4bbd77ea-2c16-4a60-8690-9b5880054406"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019754402-2160134246","status":"ok"}}' }
+2026-04-12T18:49:15.598Z [INFO]: Sending message to Twitch 2026-04-12T18:49:15.598Z /me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 2269 ✨ (+2 XP)
+2026-04-12T18:49:15.602Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019755598-313843453',
+     args:
+      { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 2269 ✨ (+2 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'f04c3853-bf25-4fa7-a525-e6ac5a10a621',
+        actionQueuedAt: '2026-04-12T21:49:15.5987376+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019755598-313843453',
+          args:
+           { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 2269 ✨ (+2 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'f04c3853-bf25-4fa7-a525-e6ac5a10a621',
+             actionQueuedAt: '2026-04-12T21:49:15.5987376+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:15.5987376+03:00","rawInput":"/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 2269 ✨ (+2 XP)","runningActionId":"f04c3853-bf25-4fa7-a525-e6ac5a10a621"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019755598-313843453","status":"ok"}}' }
+2026-04-12T18:49:17.007Z [INFO]: Sending message to Twitch 2026-04-12T18:49:17.007Z /me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 1269 ✨ (+2 XP)
+2026-04-12T18:49:17.010Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019757007-803683980',
+     args:
+      { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 1269 ✨ (+2 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '79a0e0db-d98b-4bd4-89aa-7dfe526a660f',
+        actionQueuedAt: '2026-04-12T21:49:17.0075101+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019757007-803683980',
+          args:
+           { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 1269 ✨ (+2 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '79a0e0db-d98b-4bd4-89aa-7dfe526a660f',
+             actionQueuedAt: '2026-04-12T21:49:17.0075101+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:17.0075101+03:00","rawInput":"/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 1269 ✨ (+2 XP)","runningActionId":"79a0e0db-d98b-4bd4-89aa-7dfe526a660f"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019757007-803683980","status":"ok"}}' }
+2026-04-12T18:49:18.240Z [INFO]: Sending message to Twitch 2026-04-12T18:49:18.239Z /me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 1769 ✨ (+5 XP)
+2026-04-12T18:49:18.244Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019758240-1047888138',
+     args:
+      { rawInput: '/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 1769 ✨ (+5 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '10ab3473-90c7-4274-9920-b6c82c39b027',
+        actionQueuedAt: '2026-04-12T21:49:18.2408556+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019758240-1047888138',
+          args:
+           { rawInput: '/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 1769 ✨ (+5 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '10ab3473-90c7-4274-9920-b6c82c39b027',
+             actionQueuedAt: '2026-04-12T21:49:18.2408556+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:18.2408556+03:00","rawInput":"/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 1769 ✨ (+5 XP)","runningActionId":"10ab3473-90c7-4274-9920-b6c82c39b027"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019758240-1047888138","status":"ok"}}' }
+2026-04-12T18:49:20.654Z [INFO]: Sending message to Twitch 2026-04-12T18:49:20.653Z /me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 1000 ✨ → +2000 ✨ | Баланс: 2769 ✨ (+10 XP)
+2026-04-12T18:49:20.657Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019760654-3983144064',
+     args:
+      { rawInput: '/me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 1000 ✨ → +2000 ✨ | Баланс: 2769 ✨ (+10 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'ce9a035d-3441-4cf0-8f4b-bb930ecf861a',
+        actionQueuedAt: '2026-04-12T21:49:20.6546303+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019760654-3983144064',
+          args:
+           { rawInput: '/me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 1000 ✨ → +2000 ✨ | Баланс: 2769 ✨ (+10 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'ce9a035d-3441-4cf0-8f4b-bb930ecf861a',
+             actionQueuedAt: '2026-04-12T21:49:20.6546303+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:20.6546303+03:00","rawInput":"/me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 1000 ✨ → +2000 ✨ | Баланс: 2769 ✨ (+10 XP)","runningActionId":"ce9a035d-3441-4cf0-8f4b-bb930ecf861a"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019760654-3983144064","status":"ok"}}' }
+2026-04-12T18:49:21.987Z [INFO]: Sending message to Twitch 2026-04-12T18:49:21.986Z /me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3269 ✨ (+5 XP)
+2026-04-12T18:49:21.989Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019761987-3225116118',
+     args:
+      { rawInput: '/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3269 ✨ (+5 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '7568a3b5-a27b-4403-9074-e7a6be2a819d',
+        actionQueuedAt: '2026-04-12T21:49:21.9876512+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019761987-3225116118',
+          args:
+           { rawInput: '/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3269 ✨ (+5 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '7568a3b5-a27b-4403-9074-e7a6be2a819d',
+             actionQueuedAt: '2026-04-12T21:49:21.9876512+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:21.9876512+03:00","rawInput":"/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3269 ✨ (+5 XP)","runningActionId":"7568a3b5-a27b-4403-9074-e7a6be2a819d"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019761987-3225116118","status":"ok"}}' }
+2026-04-12T18:49:23.520Z [INFO]: Sending message to Twitch 2026-04-12T18:49:23.519Z /me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 2269 ✨ (+2 XP)
+2026-04-12T18:49:23.523Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019763520-584857878',
+     args:
+      { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 2269 ✨ (+2 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '30a51210-7d0c-4eb1-8445-62cabe53b5f9',
+        actionQueuedAt: '2026-04-12T21:49:23.5214855+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019763520-584857878',
+          args:
+           { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 2269 ✨ (+2 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '30a51210-7d0c-4eb1-8445-62cabe53b5f9',
+             actionQueuedAt: '2026-04-12T21:49:23.5214855+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:23.5214855+03:00","rawInput":"/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 2269 ✨ (+2 XP)","runningActionId":"30a51210-7d0c-4eb1-8445-62cabe53b5f9"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019763520-584857878","status":"ok"}}' }
+2026-04-12T18:49:25.106Z [INFO]: Sending message to Twitch 2026-04-12T18:49:25.105Z /me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 1000 ✨ → +2000 ✨ | Баланс: 3269 ✨ (+10 XP)
+2026-04-12T18:49:25.110Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019765107-3143891031',
+     args:
+      { rawInput: '/me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 1000 ✨ → +2000 ✨ | Баланс: 3269 ✨ (+10 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '93cfff66-f0a8-46e2-a6d6-dfd7ac3e7aaf',
+        actionQueuedAt: '2026-04-12T21:49:25.1083891+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019765107-3143891031',
+          args:
+           { rawInput: '/me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 1000 ✨ → +2000 ✨ | Баланс: 3269 ✨ (+10 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '93cfff66-f0a8-46e2-a6d6-dfd7ac3e7aaf',
+             actionQueuedAt: '2026-04-12T21:49:25.1083891+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:25.1083891+03:00","rawInput":"/me ☄️⭐☄️ @renkairen ☄️ КОМЕТА! Непоганий виграш! Ставка: 1000 ✨ → +2000 ✨ | Баланс: 3269 ✨ (+10 XP)","runningActionId":"93cfff66-f0a8-46e2-a6d6-dfd7ac3e7aaf"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019765107-3143891031","status":"ok"}}' }
+2026-04-12T18:49:27.433Z [INFO]: Sending message to Twitch 2026-04-12T18:49:27.431Z /me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3769 ✨ (+5 XP)
+2026-04-12T18:49:27.435Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019767433-451425665',
+     args:
+      { rawInput: '/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3769 ✨ (+5 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'a5e2a5e0-2df4-498f-ae41-8c226b258717',
+        actionQueuedAt: '2026-04-12T21:49:27.4333828+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019767433-451425665',
+          args:
+           { rawInput: '/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3769 ✨ (+5 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'a5e2a5e0-2df4-498f-ae41-8c226b258717',
+             actionQueuedAt: '2026-04-12T21:49:27.4333828+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:27.4333828+03:00","rawInput":"/me 🌑🌟🌑 @renkairen 🌑 МЕТЕОР! Маленький виграш! Ставка: 1000 ✨ → +1500 ✨ | Баланс: 3769 ✨ (+5 XP)","runningActionId":"a5e2a5e0-2df4-498f-ae41-8c226b258717"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019767433-451425665","status":"ok"}}' }
+2026-04-12T18:49:34.900Z [INFO]: Sending message to Twitch 2026-04-12T18:49:34.899Z /me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 2269 ✨ (+2 XP)
+2026-04-12T18:49:34.903Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019774900-33976735',
+     args:
+      { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 2269 ✨ (+2 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'edd079cc-063f-486a-a3db-d599ed401ca2',
+        actionQueuedAt: '2026-04-12T21:49:34.9019673+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019774900-33976735',
+          args:
+           { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 2269 ✨ (+2 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'edd079cc-063f-486a-a3db-d599ed401ca2',
+             actionQueuedAt: '2026-04-12T21:49:34.9019673+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:34.9019673+03:00","rawInput":"/me 💨🌑💨 @renkairen Порожній простір... Ставка: 1000 ✨ | Баланс: 2269 ✨ (+2 XP)","runningActionId":"edd079cc-063f-486a-a3db-d599ed401ca2"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019774900-33976735","status":"ok"}}' }
+2026-04-12T18:49:48.078Z [INFO]: Sending message to Twitch 2026-04-12T18:49:48.078Z /me @renkairen, недостатньо зіркового пилу! Баланс: 1269 ✨, потрібно: 2000 ✨ 💸
+2026-04-12T18:49:48.081Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019788078-652939111',
+     args:
+      { rawInput: '/me @renkairen, недостатньо зіркового пилу! Баланс: 1269 ✨, потрібно: 2000 ✨ 💸',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'fa2e5e9e-8b80-470a-ab5b-712055bf1255',
+        actionQueuedAt: '2026-04-12T21:49:48.0799613+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019788078-652939111',
+          args:
+           { rawInput: '/me @renkairen, недостатньо зіркового пилу! Баланс: 1269 ✨, потрібно: 2000 ✨ 💸',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'fa2e5e9e-8b80-470a-ab5b-712055bf1255',
+             actionQueuedAt: '2026-04-12T21:49:48.0799613+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:48.0799613+03:00","rawInput":"/me @renkairen, недостатньо зіркового пилу! Баланс: 1269 ✨, потрібно: 2000 ✨ 💸","runningActionId":"fa2e5e9e-8b80-470a-ab5b-712055bf1255"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019788078-652939111","status":"ok"}}' }
+2026-04-12T18:49:54.747Z [INFO]: Sending message to Twitch 2026-04-12T18:49:54.746Z /me 💨🌑💨 @renkairen Порожній простір... Ставка: 500 ✨ | Баланс: 769 ✨ (+2 XP)
+2026-04-12T18:49:54.749Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019794747-363122709',
+     args:
+      { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 500 ✨ | Баланс: 769 ✨ (+2 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '2d8a38da-be38-4098-9197-f41cf3ce6ab1',
+        actionQueuedAt: '2026-04-12T21:49:54.7478802+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019794747-363122709',
+          args:
+           { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 500 ✨ | Баланс: 769 ✨ (+2 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '2d8a38da-be38-4098-9197-f41cf3ce6ab1',
+             actionQueuedAt: '2026-04-12T21:49:54.7478802+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:54.7478802+03:00","rawInput":"/me 💨🌑💨 @renkairen Порожній простір... Ставка: 500 ✨ | Баланс: 769 ✨ (+2 XP)","runningActionId":"2d8a38da-be38-4098-9197-f41cf3ce6ab1"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019794747-363122709","status":"ok"}}' }
+2026-04-12T18:49:57.168Z [INFO]: Sending message to Twitch 2026-04-12T18:49:57.167Z /me 💨🌑💨 @renkairen Порожній простір... Ставка: 500 ✨ | Баланс: 269 ✨ (+2 XP)
+2026-04-12T18:49:57.171Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019797168-493509118',
+     args:
+      { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 500 ✨ | Баланс: 269 ✨ (+2 XP)',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: '7fce2ea2-52f5-4dd3-80a6-8596f1add195',
+        actionQueuedAt: '2026-04-12T21:49:57.1695128+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019797168-493509118',
+          args:
+           { rawInput: '/me 💨🌑💨 @renkairen Порожній простір... Ставка: 500 ✨ | Баланс: 269 ✨ (+2 XP)',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: '7fce2ea2-52f5-4dd3-80a6-8596f1add195',
+             actionQueuedAt: '2026-04-12T21:49:57.1695128+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:57.1695128+03:00","rawInput":"/me 💨🌑💨 @renkairen Порожній простір... Ставка: 500 ✨ | Баланс: 269 ✨ (+2 XP)","runningActionId":"7fce2ea2-52f5-4dd3-80a6-8596f1add195"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019797168-493509118","status":"ok"}}' }
+2026-04-12T18:49:59.327Z [INFO]: Sending message to Twitch 2026-04-12T18:49:59.327Z /me @renkairen, недостатньо зіркового пилу! Баланс: 269 ✨, потрібно: 500 ✨ 💸
+2026-04-12T18:49:59.330Z [INFO]: Twitch message sent successfully | meta: { response:
+   { event: { source: 'Request', type: 'DoAction' },
+     id: 'sb:client:req:1776019799327-2198169892',
+     args:
+      { rawInput: '/me @renkairen, недостатньо зіркового пилу! Баланс: 269 ✨, потрібно: 500 ✨ 💸',
+        actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+        actionName: 'serverMessage',
+        runningActionId: 'a104a05f-6345-47f3-b35e-ae6417dba299',
+        actionQueuedAt: '2026-04-12T21:49:59.3285294+03:00' },
+     status: 'ok' },
+  [Symbol(level)]: 'info',
+  [Symbol(splat)]:
+   [ { response:
+        { event: { source: 'Request', type: 'DoAction' },
+          id: 'sb:client:req:1776019799327-2198169892',
+          args:
+           { rawInput: '/me @renkairen, недостатньо зіркового пилу! Баланс: 269 ✨, потрібно: 500 ✨ 💸',
+             actionId: 'be02f9d8-0b3c-4827-80a3-c590181cecaf',
+             actionName: 'serverMessage',
+             runningActionId: 'a104a05f-6345-47f3-b35e-ae6417dba299',
+             actionQueuedAt: '2026-04-12T21:49:59.3285294+03:00' },
+          status: 'ok' } } ],
+  [Symbol(message)]:
+   '{"level":"info","message":"Twitch message sent successfully","response":{"args":{"actionId":"be02f9d8-0b3c-4827-80a3-c590181cecaf","actionName":"serverMessage","actionQueuedAt":"2026-04-12T21:49:59.3285294+03:00","rawInput":"/me @renkairen, недостатньо зіркового пилу! Баланс: 269 ✨, потрібно: 500 ✨ 💸","runningActionId":"a104a05f-6345-47f3-b35e-ae6417dba299"},"event":{"source":"Request","type":"DoAction"},"id":"sb:client:req:1776019799327-2198169892","status":"ok"}}' }

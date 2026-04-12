@@ -13,6 +13,7 @@ import { gameConfigKnock } from './games/gameConfig.js';
 import { serverMessages } from './config/config.js';
 import { MessageService } from './services/MessageService.js';
 import { StarfallMessageTemplate } from './utils/messageTemplates/StarfallMessageTemplate.js';
+import CosmosGame from './games/cosmosGames/cosmosGame.js';
 import { createRouteHandlers } from './routes/controlRoutes.js';
 import { httpControl } from './config/config.js';
 import { DefaultMessageTemplate } from './utils/messageTemplates/DefaultMessageTemplate.js';
@@ -21,16 +22,16 @@ import { DefaultMessageTemplate } from './utils/messageTemplates/DefaultMessageT
 try {
   const __dirname = dirname(fileURLToPath(import.meta.url));
   process.chdir(__dirname);
-} catch {}
+} catch { }
 
 // Global crash handlers so errors are logged instead of silent exits
 EventEmitter.defaultMaxListeners = 50;
 process.on('uncaughtException', (err) => {
-  try { logger.error('Uncaught exception', { err }); } catch {}
+  try { logger.error('Uncaught exception', { err }); } catch { }
   process.exit(1);
 });
 process.on('unhandledRejection', (reason) => {
-  try { logger.error('Unhandled rejection', { reason }); } catch {}
+  try { logger.error('Unhandled rejection', { reason }); } catch { }
   process.exit(1);
 });
 
@@ -38,6 +39,7 @@ process.on('unhandledRejection', (reason) => {
 let knockGame = null;
 let retypeWordGame = null;
 let currentStarfallGame = null;
+let cosmosGame = null;
 
 // Services for sending messages
 let messageService = null;
@@ -78,6 +80,7 @@ function startControlServer() {
     {
       knockGame,
       retypeWordGame,
+      cosmosGame,
       messageService,
       defaultMessageTemplate,
       sendTwitchMessage
@@ -136,28 +139,32 @@ function startControlServer() {
 async function main() {
   try {
     logger.info('Starting game application...');
-    
+
     // Initialize message services
     messageService = new MessageService();
     defaultMessageTemplate = new DefaultMessageTemplate(serverMessages);
-    
+
     // Start KnockGame - always running, monitors chat
     // Don't start its internal HTTP server since we have a unified one
     knockGame = new KnockGame(gameConfigKnock, { startHttpServer: false });
     await knockGame.connect();
-    
+
     // Set client in message service once knockGame is connected
     const client = knockGame.client || knockGame.chatMonitor?.getClient();
     if (client) {
       messageService.setClient(client);
     }
-    
+
     logger.info('KnockGame started and monitoring chat');
 
     // Start RetypeWordGame - monitors chat for "!meh" transcription
     retypeWordGame = new RetypeWordGame();
     await retypeWordGame.connect();
     logger.info('RetypeWordGame started and monitoring chat');
+
+    cosmosGame = new CosmosGame();
+    await cosmosGame.connect();
+    logger.info('CosmosGame started and monitoring chat');
 
     // Start unified control server
     startControlServer();
@@ -168,7 +175,7 @@ async function main() {
     // Graceful shutdown
     const shutdown = async (signal) => {
       logger.info(`Received ${signal}, stopping games...`);
-      
+
       if (knockGame) {
         await knockGame.stop();
       }
@@ -176,11 +183,15 @@ async function main() {
       if (retypeWordGame) {
         await retypeWordGame.stop();
       }
-      
+
       if (currentStarfallGame) {
         await currentStarfallGame.stop();
       }
-      
+
+      if (cosmosGame) {
+        await cosmosGame.stop();
+      }
+
       process.exit(0);
     };
     process.on('SIGINT', () => shutdown('SIGINT'));

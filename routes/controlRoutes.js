@@ -1,5 +1,5 @@
 import logger from '../utils/logger.js';
-import { setKnockEnabled, knockEnabled, setStarfallEnabled, starfallEnabled, enableBothGames, disableBothGames, setRetypeWordEnabled, retypeWordEnabled } from '../games/gameState.js';
+import { setKnockEnabled, knockEnabled, setStarfallEnabled, starfallEnabled, enableBothGames, disableBothGames, setRetypeWordEnabled, retypeWordEnabled, setCosmosEnabled, cosmosEnabled } from '../games/gameState.js';
 import StarFallGame from '../games/starfallGame/starfallGame.js';
 import { serverMessages } from '../config/config.js';
 
@@ -57,7 +57,7 @@ function replaceTemplateParams(template, params) {
  * @param {Function} getCurrentstarfallGame - Getter function for currentstarfallGame
  * @param {Function} setCurrentstarfallGame - Setter function to update currentstarfallGame
  */
-export function createRouteHandlers({ knockGame, retypeWordGame, messageService, messageTemplate, sendTwitchMessage }, getCurrentstarfallGame, setCurrentstarfallGame) {
+export function createRouteHandlers({ knockGame, retypeWordGame, cosmosGame, messageService, messageTemplate, sendTwitchMessage }, getCurrentstarfallGame, setCurrentstarfallGame) {
   /**
    * Prepare and send a Twitch message
    * @param {string} templateKey - Key in controlMessages object
@@ -73,7 +73,7 @@ export function createRouteHandlers({ knockGame, retypeWordGame, messageService,
     const message = messageTemplate
       ? messageTemplate.prepareMessage(template, params)
       : replaceTemplateParams(template, params);
-    
+
     sendTwitchMessage(message);
   }
 
@@ -118,32 +118,52 @@ export function createRouteHandlers({ knockGame, retypeWordGame, messageService,
       sendResponse(res, 200, state, 'knockStatus', { status: statusText });
     },
 
-        /**
-     * GET /retype/disable - Disable retype game
+    /**
+ * GET /retype/disable - Disable retype game
+ */
+    '/retype/disable': async (req, res) => {
+      setRetypeWordEnabled(false);
+      sendResponse(res, 200, { message: '!meh disabled', enabled: false }, 'mehDisabled');
+      logger.info('RetypeWord game disabled via HTTP control');
+    },
+
+    /**
+     * GET /retype/enable - Enable retype game
      */
-        '/retype/disable': async (req, res) => {
-          setRetypeWordEnabled(false);
-          sendResponse(res, 200, { message: '!meh disabled', enabled: false }, 'mehDisabled');
-          logger.info('RetypeWord game disabled via HTTP control');
-        },
-    
-        /**
-         * GET /retype/enable - Enable retype game
-         */
-        '/retype/enable': async (req, res) => {
-          setRetypeWordEnabled(true);
-          sendResponse(res, 200, { message: '!meh enabled', enabled: true }, 'mehEnabled');
-          logger.info('RetypeWord game enabled via HTTP control');
-        },
-    
-        /**
-         * GET /retype/status - Get retype game status
-         */
-        '/retype/status': async (req, res) => {
-          const state = retypeWordGame ? retypeWordGame.getState() : { enabled: retypeWordEnabled, isRunning: false };
-          const statusText = getStatusText(state.enabled);
-          sendResponse(res, 200, state, 'mehStatus', { status: statusText });
-        },
+    '/retype/enable': async (req, res) => {
+      setRetypeWordEnabled(true);
+      sendResponse(res, 200, { message: '!meh enabled', enabled: true }, 'mehEnabled');
+      logger.info('RetypeWord game enabled via HTTP control');
+    },
+
+    /**
+     * GET /retype/status - Get retype game status
+     */
+    '/retype/status': async (req, res) => {
+      const state = retypeWordGame ? retypeWordGame.getState() : { enabled: retypeWordEnabled, isRunning: false };
+      const statusText = getStatusText(state.enabled);
+      sendResponse(res, 200, state, 'mehStatus', { status: statusText });
+    },
+
+    '/cosmos/disable': async (req, res) => {
+      setCosmosEnabled(false);
+      sendResponse(res, 200, { message: 'cosmos casino disabled', enabled: false }, 'cosmosDisabled');
+      logger.info('Cosmos casino disabled via HTTP control');
+    },
+
+    '/cosmos/enable': async (req, res) => {
+      setCosmosEnabled(true);
+      sendResponse(res, 200, { message: 'cosmos casino enabled', enabled: true }, 'cosmosEnabled');
+      logger.info('Cosmos casino enabled via HTTP control');
+    },
+
+    '/cosmos/status': async (req, res) => {
+      const state = cosmosGame
+        ? cosmosGame.getState()
+        : { enabled: cosmosEnabled, isRunning: false };
+      const statusText = getStatusText(state.enabled);
+      sendResponse(res, 200, state, 'cosmosStatus', { status: statusText });
+    },
 
     /**
      * GET /starfall/disable - Disable starfall game
@@ -184,7 +204,7 @@ export function createRouteHandlers({ knockGame, retypeWordGame, messageService,
           const newGame = new StarFallGame();
           await newGame.connect();
           logger.info('starfall game started via HTTP control');
-          
+
           // Update the current game reference
           if (setCurrentstarfallGame) {
             setCurrentstarfallGame(newGame);
@@ -222,11 +242,11 @@ export function createRouteHandlers({ knockGame, retypeWordGame, messageService,
     /**
      * GET /games/disable-all - Disable both games simultaneously
      */
-        '/games/disable-all': async (req, res) => {
-          disableBothGames();
-          sendResponse(res, 200, { message: 'All games disabled', knockEnabled: true, starfallEnabled: true }, 'bothGamesDisabled');
-          logger.info('Both games enabled via HTTP control');
-        },
+    '/games/disable-all': async (req, res) => {
+      disableBothGames();
+      sendResponse(res, 200, { message: 'All games disabled', knockEnabled: true, starfallEnabled: true }, 'bothGamesDisabled');
+      logger.info('Both games enabled via HTTP control');
+    },
 
     /**
      * GET /status - Get overall status of both games
@@ -234,9 +254,9 @@ export function createRouteHandlers({ knockGame, retypeWordGame, messageService,
     '/status': async (req, res) => {
       const currentstarfallGame = getCurrentstarfallGame();
       const knockState = knockGame ? knockGame.getState() : { enabled: knockEnabled, isRunning: false };
-      const starfallState = { 
-        enabled: starfallEnabled, 
-        isRunning: currentstarfallGame ? currentstarfallGame.isRunning : false 
+      const starfallState = {
+        enabled: starfallEnabled,
+        isRunning: currentstarfallGame ? currentstarfallGame.isRunning : false
       };
       const retypeWordState = retypeWordGame ? retypeWordGame.getState() : { enabled: retypeWordEnabled, isRunning: false };
       const knockStatusText = getStatusText(knockState.enabled);

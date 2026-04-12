@@ -1,5 +1,5 @@
 const httpControl = {
-  host: '127.0.0.1', 
+  host: '127.0.0.1',
   port: 3001
 }
 
@@ -17,7 +17,10 @@ const serverMessages = {
     mehEnabled: ' moonos1Greenflag !бля команда увімкнена',
     mehStatus: '📊 Статус !бля: {status}',
     overallStatus: '📊 Загальний статус: !тик - {knockStatus}, Зорепад - {starfallStatus}, !бля - {retypeWordStatus}',
-    healthCheck: 'moonos1Greenflag Система працює нормально'
+    healthCheck: 'moonos1Greenflag Система працює нормально',
+    cosmosDisabled: ' moonos1Redflag Космічне казино вимкнено',
+    cosmosEnabled: ' moonos1Greenflag Космічне казино увімкнено',
+    cosmosStatus: '📊 Статус казино: {status}',
   },
   statusTexts: {
     enabled: 'увімкнено',

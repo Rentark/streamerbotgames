@@ -25,6 +25,22 @@ export let starfallEnabled = true;
 export let retypeWordEnabled = true;
 
 /**
+ * Cosmos casino enabled state — controlled via HTTP API.
+ * Default: enabled.
+ */
+export let cosmosEnabled = true;
+ 
+/**
+ * Set the cosmos casino enabled state.
+ * @param {boolean} value
+ */
+export function setCosmosEnabled(value) {
+  const previousState = cosmosEnabled;
+  cosmosEnabled = Boolean(value);
+  logger.info('Cosmos casino state changed', { previousState, newState: cosmosEnabled });
+}
+
+/**
  * Set the knock game enabled state
  * @param {boolean} value - Whether the game should be enabled
  */
@@ -70,7 +86,8 @@ export function enableBothGames() {
   setKnockEnabled(true);
   setStarfallEnabled(true);
   setRetypeWordEnabled(true);
-  logger.info('Both games enabled simultaneously');
+  setCosmosEnabled(true); 
+  logger.info('All games enabled simultaneously');
 }
 
 /**
@@ -80,7 +97,8 @@ export function disableBothGames() {
   setKnockEnabled(false);
   setStarfallEnabled(false);
   setRetypeWordEnabled(false);
-  logger.info('Both games disabled simultaneously');
+  setCosmosEnabled(false);
+  logger.info('All games disabled simultaneously');
 }
 
 /**
@@ -91,6 +109,7 @@ export function getGameStates() {
   return {
     knockEnabled,
     starfallEnabled,
-    retypeWordEnabled
+    retypeWordEnabled,
+    cosmosEnabled 
   };
 }
