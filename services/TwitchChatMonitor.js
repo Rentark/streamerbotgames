@@ -253,6 +253,10 @@ export class TwitchChatMonitor {
     try {
       const message = data?.data?.message?.message?.trim();
       const username = data?.data?.message?.username;
+      const userRole = data?.data?.user?.role;
+      const isSubscriber = data?.data?.user?.subscribed;
+
+      logger.info('Chat message received', { data, username });
       
       if (!message || !username) {
         return;
@@ -268,6 +272,8 @@ export class TwitchChatMonitor {
                 await callbacks.onChatMessage({
                   message,
                   username,
+                  userRole,
+                  isSubscriber,
                   rawData: data
                 });
               } catch (error) {

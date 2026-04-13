@@ -3,8 +3,12 @@ import gameConfigCosmos from '../../games/cosmosGames/cosmosConfig.js';
 
 /**
  * MysteryBoxService
- * Opens a cosmic mystery box for a player.
- * Applies luck weighting, handles all outcome types, mutates player in place.
+ * Opens a cosmic mystery box with luck-weighted outcomes.
+ * Mutates only progression fields (base_luck, shield) in place.
+ * All SE balance changes are returned as instructions for callers to execute.
+ *
+ * The "chaos" outcome affects multiple recent chatters — the caller must supply
+ * a `recentChatters` iterable and handle the per-chatter SE deductions.
  */
 export class MysteryBoxService {
   constructor(config = gameConfigCosmos) {
@@ -12,14 +16,10 @@ export class MysteryBoxService {
     this.luckService = new LuckService(config);
   }
 
-  /**
-   * Cost of opening a box for this player (level-25 perk halves it).
-   * @param {{ level: number }} player
-   * @returns {number}
-   */
-  getCost(player) {
+  /** Box cost, halved at level 25 perk. */
+  getCost(playerLevel) {
     const perk = this.config.levelPerks[25];
-    if (perk?.boxDiscount && player.level >= 25) {
+    if (perk?.boxDiscount && playerLevel >= 25) {
       return Math.floor(this.config.boxCost * (1 - perk.boxDiscount));
     }
     return this.config.boxCost;
@@ -27,28 +27,29 @@ export class MysteryBoxService {
 
   /**
    * Open a mystery box.
-   * Mutates player in place (stardust, base_luck, shield).
+   * Mutates `player` in place for luck/shield fields only.
+   * Returns a result describing what happened — caller handles SE points.
    *
-   * @param {{ stardust: number, level: number, base_luck: number, shield: number }} player
+   * @param {{ level: number, base_luck: number, shield: number }} player - progression only
+   * @param {number} currentBalance   - player's current SE points (for no_funds check)
+   * @param {Iterable<string>} recentChatters - usernames of recent chatters (for chaos)
    * @returns {{
    *   error?: 'no_funds',
    *   cost?: number,
    *   type?: string,
    *   emoji?: string,
    *   label?: string,
-   *   value?: number,
-   *   balance?: number,
-   *   newBaseLuck?: number
+   *   selfDelta?: number,           // SE points change for box opener
+   *   chaosChatters?: string[],     // usernames to deduct from (chaos only)
+   *   chaosDeductPercent?: number,  // % to deduct from each chatter (chaos only)
    * }}
    */
-  openBox(player) {
-    const cost = this.getCost(player);
+  openBox(player, currentBalance, recentChatters = []) {
+    const cost = this.getCost(player.level);
 
-    if (player.stardust < cost) {
+    if (currentBalance < cost) {
       return { error: 'no_funds', cost };
     }
-
-    player.stardust -= cost;
 
     const luck = this.luckService.computeLuck(player);
     const adjustedOutcomes = this.luckService.applyLuckToOutcomes(
@@ -60,41 +61,57 @@ export class MysteryBoxService {
 
     const label = outcome.label
       ? outcome.label
-          .replace('{value}',    String(outcome.value))
+          .replace('{value}',    String(Math.abs(outcome.value)))
           .replace('{absValue}', String(Math.abs(outcome.value)))
       : '???';
+
+    const base = { type: outcome.type, emoji: outcome.emoji, label };
 
     switch (outcome.type) {
       case 'small_win':
       case 'big_win':
       case 'jackpot_win':
-        player.stardust += outcome.value;
-        return { type: outcome.type, emoji: outcome.emoji, label, value: outcome.value, balance: player.stardust };
+        // Net: opener pays cost, gains outcome.value
+        return { ...base, selfDelta: outcome.value - cost };
 
       case 'lose':
-        player.stardust = Math.max(0, player.stardust + outcome.value); // value is negative
-        return { type: outcome.type, emoji: outcome.emoji, label, value: outcome.value, balance: player.stardust };
+        return { ...base, selfDelta: outcome.value - cost }; // outcome.value is negative
 
       case 'luck_boost':
-        player.base_luck = Math.min(
-          player.base_luck + outcome.value,
-          this.config.maxBaseLuck
-        );
-        return { type: outcome.type, emoji: outcome.emoji, label, newBaseLuck: player.base_luck, balance: player.stardust };
+        player.base_luck = Math.min(player.base_luck + outcome.value, this.config.maxBaseLuck);
+        return { ...base, selfDelta: -cost };
 
       case 'shield':
         player.shield = 1;
-        return { type: outcome.type, emoji: outcome.emoji, label, balance: player.stardust };
+        return { ...base, selfDelta: -cost };
 
       case 'chaos': {
-        // Chaos: lose 15% of current stardust (after box cost was already deducted)
-        const loss = Math.floor(player.stardust * 0.15);
-        player.stardust = Math.max(0, player.stardust - loss);
-        return { type: outcome.type, emoji: outcome.emoji, label, value: -loss, balance: player.stardust };
+        // Deduct cost from opener; pick chatters to punish
+        const cfg = this.config.mysteryBox.chaosConfig;
+        const eligibleChatters = [...recentChatters].filter(Boolean);
+
+        let affected;
+        if (cfg.affectAll) {
+          affected = eligibleChatters;
+        } else {
+          // Shuffle and take up to maxChattersAffected
+          for (let i = eligibleChatters.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [eligibleChatters[i], eligibleChatters[j]] = [eligibleChatters[j], eligibleChatters[i]];
+          }
+          affected = eligibleChatters.slice(0, cfg.maxChattersAffected);
+        }
+
+        return {
+          ...base,
+          selfDelta: -cost,
+          chaosChatters: affected,
+          chaosDeductPercent: cfg.deductPercent,
+        };
       }
 
       default:
-        return { type: 'unknown', emoji: '❓', label: '???', balance: player.stardust };
+        return { ...base, selfDelta: -cost };
     }
   }
 }
