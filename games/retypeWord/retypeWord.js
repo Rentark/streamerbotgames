@@ -68,7 +68,7 @@ class RetypeWordGame {
     logger.info('RetypeWordGame disconnected from Streamer.bot');
   }
 
-  handleChatMessage = async ({ message, username }) => {
+  handleChatMessage = async ({ message, username, userRole, isSubscriber }) => {
     if (!message || !username) return;
 
     const user = normalizeUsername(username);
@@ -91,6 +91,8 @@ class RetypeWordGame {
 
     const ctx = {
       user,
+      userRole,
+      isSubscriber,
       command,
       args:            parts.slice(1),
       rawMessage:      trimmed,

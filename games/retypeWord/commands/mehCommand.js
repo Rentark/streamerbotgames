@@ -1,12 +1,17 @@
+import { rolesMap } from '../../../config/config.js';
 import { validateTranscriptionWithLLM } from '../../../services/LLMConnectorService.js';
+
+function isUserAllowedToBypassValidation(userRole, isSubscriber, monthsSubscribed, isFromSharedChatGuest) {
+  return (userRole === rolesMap['1'] && !isSubscriber) || (userRole === rolesMap['1'] && isSubscriber && monthsSubscribed < 3) || (userRole === rolesMap['1'] && isFromSharedChatGuest);
+}
 
 export const mehCommand = {
   name: 'meh',
-  aliases: new Set(['!meh', '!бля', 'бля', '!ой', '!,bz', ',bz']),
+  aliases: new Set(['!meh', '!бля', 'бля', '!ой', '!,kz', ',kz']),
   cooldown: 0, // handled externally via canUseMeh sliding window
 
   async execute(ctx) {
-    const { user, previousMessage, reply, services } = ctx;
+    const { user, previousMessage, reply, services, userRole, isSubscriber, isFromSharedChatGuest, monthsSubscribed } = ctx;
     const { config } = services;
 
     const prev = previousMessage;
@@ -26,7 +31,7 @@ export const mehCommand = {
     if (cyrillicCount <= config.transcription.minUkrCyrillicLetters) return;
 
     // LLM validation
-    const validation = await validateTranscriptionWithLLM(transcribed, user);
+    const validation = isUserAllowedToBypassValidation(userRole, isSubscriber, monthsSubscribed, isFromSharedChatGuest) ? await validateTranscriptionWithLLM(transcribed, user) : { isValid: true, finalText: transcribed };
     if (!validation?.finalText) return;
 
     const response = config.responseTemplate

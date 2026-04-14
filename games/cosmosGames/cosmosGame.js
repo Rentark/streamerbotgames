@@ -1,7 +1,7 @@
 import logger from '../../utils/logger.js';
-import { MessageService }      from '../../services/MessageService.js';
-import { TwitchChatMonitor }   from '../../services/TwitchChatMonitor.js';
-import { CommandBus }          from '../../services/CommandBus.js';
+import { MessageService }        from '../../services/MessageService.js';
+import { TwitchChatMonitor }     from '../../services/TwitchChatMonitor.js';
+import { CommandBus }            from '../../services/CommandBus.js';
 import {
   safeExecutionMiddleware,
   loggingMiddleware,
@@ -9,16 +9,18 @@ import {
   createGameEnabledMiddleware,
   createBotThrottleMiddleware,
 } from '../../services/middlewares/index.js';
-import { SlotsService }        from '../../services/cosmos/SlotsService.js';
-import { DiceService }         from '../../services/cosmos/DiceService.js';
-import { PvpService }          from '../../services/cosmos/PvpService.js';
-import { MysteryBoxService }   from '../../services/cosmos/MysteryBoxService.js';
-import { ProgressionService }  from '../../services/cosmos/ProgressionService.js';
-import { LuckService }         from '../../services/cosmos/LuckService.js';
+import { SlotsService }          from '../../services/cosmos/SlotsService.js';
+import { DiceService }           from '../../services/cosmos/DiceService.js';
+import { PvpService }            from '../../services/cosmos/PvpService.js';
+import { MysteryBoxService }     from '../../services/cosmos/MysteryBoxService.js';
+import { ProgressionService }    from '../../services/cosmos/ProgressionService.js';
+import { LuckService }           from '../../services/cosmos/LuckService.js';
+import { JackpotService }        from '../../services/cosmos/JackpotService.js';
+import { BlackjackService }      from '../../services/cosmos/BlackjackService.js';
 import { CosmosMessageTemplate } from '../../utils/messageTemplates/CosmosMessageTemplate.js';
 import { getPlayer, createPlayer, updatePlayer } from '../../db/queries.js';
-import { registerCosmosModule } from './cosmosModule.js';
-import gameConfigCosmos         from './cosmosConfig.js';
+import { registerCosmosModule }  from './cosmosModule.js';
+import gameConfigCosmos          from './cosmosConfig.js';
 import { cosmosEnabled, setCosmosEnabled, normalizeUsername } from './state.js';
 
 // Ensure cosmos tables exist
@@ -29,44 +31,60 @@ import '../../db/db.js';
  * Space-themed Twitch chat casino.
  * Economy: StreamElements points (SE API).
  * Progression: level, XP, luck, shield, daily — SQLite.
+ * Jackpot: progressive pool accumulated from all bets — SQLite.
+ * Blackjack: in-memory session state.
  * Architecture: CommandBus + middleware pipeline.
  */
 class CosmosGame {
   constructor(config = gameConfigCosmos, options = {}) {
-    this.config      = config;
-    this.gameId      = `cosmos-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
-    this.isRunning   = false;
+    this.config    = config;
+    this.gameId    = `cosmos-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
+    this.isRunning = false;
 
-    // Bot message throttle (shared across all replies via middleware)
     this._botMessageTimes = [];
 
-    // Track chatters seen in the last chaosConfig.recentWindowMs for chaos box outcome
-    // Map<username, lastSeenAt>
+    /** Map<username, lastSeenAt> — updated on every chat message for chaos box */
     this.recentChatters = new Map();
 
-    // ── Services ──────────────────────────────────────────────────────────────
-    this.messageService = new MessageService();
-    this.chatMonitor    = TwitchChatMonitor.getInstance();
-    this.slotsService   = new SlotsService(config);
-    this.diceService    = new DiceService(config);
-    this.pvpService     = new PvpService(config);
-    this.boxService     = new MysteryBoxService(config);
-    this.progression    = new ProgressionService(config);
-    this.luckService    = new LuckService(config);
-    this.template       = new CosmosMessageTemplate(config);
+    /** Map<challengerUsername, BlackjackSession> */
+    this.blackjackSessions = new Map();
 
-    /** Shared services object injected into every ctx */
+    // ── Services ──────────────────────────────────────────────────────────────
+    this.messageService  = new MessageService();
+    this.chatMonitor     = TwitchChatMonitor.getInstance();
+    this.slotsService    = new SlotsService(config);
+    this.diceService     = new DiceService(config);
+    this.pvpService      = new PvpService(config);
+    this.boxService      = new MysteryBoxService(config);
+    this.progression     = new ProgressionService(config);
+    this.luckService     = new LuckService(config);
+    this.jackpotService  = new JackpotService(config);
+    this.blackjackService = new BlackjackService();
+    this.template        = new CosmosMessageTemplate(config);
+
+    /**
+     * Shared services injected into every ctx.
+     * `sendMessage` and `blackjackSessions` are needed by blackjack commands
+     * which fire async callbacks outside of the normal ctx.reply path.
+     */
     this.services = {
-      messageService: this.messageService,
-      slotsService:   this.slotsService,
-      diceService:    this.diceService,
-      pvpService:     this.pvpService,
-      boxService:     this.boxService,
-      progression:    this.progression,
-      luckService:    this.luckService,
-      template:       this.template,
+      messageService:    this.messageService,
+      slotsService:      this.slotsService,
+      diceService:       this.diceService,
+      pvpService:        this.pvpService,
+      boxService:        this.boxService,
+      progression:       this.progression,
+      luckService:       this.luckService,
+      jackpotService:    this.jackpotService,
+      blackjackService:  this.blackjackService,
+      blackjackSessions: this.blackjackSessions,
+      template:          this.template,
       config,
-      recentChatters: this.recentChatters,
+      recentChatters:    this.recentChatters,
+
+      /** Direct message sender for timeout/async callbacks that lack ctx.reply */
+      sendMessage: (msg) => this._send(msg),
+
       db: {
         getOrCreate: (username) => {
           createPlayer.run(username, Date.now());
@@ -74,7 +92,7 @@ class CosmosGame {
         },
         save: (player) => {
           updatePlayer.run(
-            0, // stardust unused — SE is source of truth
+            0,                // stardust unused — SE is source of truth
             player.level,
             player.xp,
             player.base_luck,
@@ -99,7 +117,6 @@ class CosmosGame {
 
     registerCosmosModule({ bus: this.commandBus, config });
 
-    // Bind callbacks
     this.handleConnect     = this.handleConnect.bind(this);
     this.handleDisconnect  = this.handleDisconnect.bind(this);
     this.handleChatMessage = this.handleChatMessage.bind(this);
@@ -123,7 +140,7 @@ class CosmosGame {
     const user = normalizeUsername(username);
     if (!user) return;
 
-    // Always update recent-chatters map (needed by chaos box outcome)
+    // Always track chatters for chaos box
     this.recentChatters.set(user, Date.now());
     this._pruneRecentChatters();
 
@@ -148,7 +165,6 @@ class CosmosGame {
   _canBotSpeak() {
     const now = Date.now();
     const { windowMs, maxMessages } = this.config.botMessages;
-
     while (this._botMessageTimes.length && now - this._botMessageTimes[0] > windowMs) {
       this._botMessageTimes.shift();
     }
@@ -182,18 +198,19 @@ class CosmosGame {
 
   getState() {
     return {
-      isRunning:       this.isRunning,
-      enabled:         cosmosEnabled,
-      gameId:          this.gameId,
-      pendingDuels:    this.pvpService.pendingDuels.size,
-      recentChatters:  this.recentChatters.size,
-      registeredCmds:  this.commandBus.listCommands(),
+      isRunning:        this.isRunning,
+      enabled:          cosmosEnabled,
+      gameId:           this.gameId,
+      pendingDuels:     this.pvpService.pendingDuels.size,
+      recentChatters:   this.recentChatters.size,
+      activeBJSessions: this.blackjackSessions.size,
+      jackpots:         this.jackpotService.getAllJackpots(),
+      registeredCmds:   this.commandBus.listCommands(),
     };
   }
 
   async connect() {
     if (this.isRunning) { logger.warn('CosmosGame already running'); return; }
-
     logger.info('Connecting CosmosGame to TwitchChatMonitor...');
     await this.chatMonitor.registerGame(this.gameId, {
       onConnect:     this.handleConnect,

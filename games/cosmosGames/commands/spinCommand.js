@@ -2,7 +2,7 @@ import { parseAmount } from '../../../utils/parseAmount.js';
 
 /**
  * !spin <bet|%|all>
- * Spins the 3-reel slot machine and awards/deducts SE points.
+ * Spins the 3-reel slot machine. Contributes to jackpot and can trigger it.
  */
 export const spinCommand = {
   name: 'spin',
@@ -11,7 +11,8 @@ export const spinCommand = {
 
   async execute(ctx) {
     const { user, args, reply, services } = ctx;
-    const { messageService, slotsService, luckService, progression, template, config, db } = services;
+    const { messageService, slotsService, luckService, progression,
+            jackpotService, template, config, db } = services;
 
     const fetchBal = () => messageService.getStreamElementsPoints(user);
     const bet = await parseAmount(args[0], fetchBal);
@@ -40,7 +41,12 @@ export const spinCommand = {
     const luck   = luckService.computeLuck(player);
     const result = slotsService.spin(bet, luck);
 
-    // Apply SE reward/deduction
+    // ── Jackpot contribution (before payout) ─────────────────────────────
+    for (const jpId of Object.keys(config.jackpots ?? {})) {
+      jackpotService.contribute(jpId, bet);
+    }
+
+    // ── Apply SE reward/deduction ─────────────────────────────────────────
     if (result.win > 0) {
       const reward = await messageService.setStreamElementsReward(user, result.net);
       if (!reward.success) {
@@ -71,5 +77,17 @@ export const spinCommand = {
 
     if (leveled) msg += template.formatLevelUp(newLevel, perksUnlocked);
     await reply(msg);
+
+    // ── Jackpot trigger check (after normal win message) ─────────────────
+    for (const jpId of Object.keys(config.jackpots ?? {})) {
+      if (jackpotService.tryTrigger(jpId, bet, luck)) {
+        const won   = jackpotService.claim(jpId, user);
+        const jpCfg = config.jackpots[jpId];
+        const jp    = await messageService.setStreamElementsReward(user, won);
+        if (jp.success) {
+          await reply(template.formatJackpotWon({ username: user, amount: won, name: jpCfg.name, emoji: jpCfg.emoji }));
+        }
+      }
+    }
   }
 };

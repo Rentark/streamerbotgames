@@ -1,5 +1,6 @@
 import { StreamerbotClient } from '@streamerbot/client';
 import logger from '../utils/logger.js';
+import { rolesMap } from '../config/config.js';
 
 /**
  * TwitchChatMonitor - Singleton service for handling Streamer.bot client connection and Twitch chat message monitoring
@@ -253,10 +254,12 @@ export class TwitchChatMonitor {
     try {
       const message = data?.data?.message?.message?.trim();
       const username = data?.data?.message?.username;
-      const userRole = data?.data?.user?.role;
+      const userRole = rolesMap[data?.data?.user?.role];
       const isSubscriber = data?.data?.user?.subscribed;
+      const isFromSharedChatGuest = data?.data?.message?.isFromSharedChatGuest;
+      const monthsSubscribed = data?.data?.user?.monthsSubscribed;
 
-      logger.info('Chat message received', { data, username });
+      logger.info('Chat message received', { username, userRole, isSubscriber, isFromSharedChatGuest, monthsSubscribed, role:data?.data?.user?.role });
       
       if (!message || !username) {
         return;
@@ -274,6 +277,8 @@ export class TwitchChatMonitor {
                   username,
                   userRole,
                   isSubscriber,
+                  isFromSharedChatGuest,
+                  monthsSubscribed,
                   rawData: data
                 });
               } catch (error) {

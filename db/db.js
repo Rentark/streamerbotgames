@@ -72,6 +72,13 @@ export function initializeDatabase() {
  
       CREATE INDEX IF NOT EXISTS idx_cosmos_level
       ON cosmos_players(level DESC, xp DESC);
+
+      CREATE TABLE IF NOT EXISTS cosmos_jackpots (
+      id            TEXT    PRIMARY KEY,
+      amount        INTEGER NOT NULL DEFAULT 0,
+      last_won_at   INTEGER,
+      last_won_by   TEXT
+    );
     `);
 
     logger.info('Database initialized successfully');

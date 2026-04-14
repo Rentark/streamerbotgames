@@ -26,8 +26,14 @@ const serverMessages = {
     enabled: 'увімкнено',
     disabled: 'вимкнено'
   }
-
 }
 
-export { httpControl, serverMessages };
-export default { httpControl, serverMessages };
+const rolesMap = {
+  '1': 'user',
+  '2': 'vip',
+  '3': 'moderator',
+  '4': 'broadcaster'
+}
+
+export { httpControl, serverMessages, rolesMap };
+export default { httpControl, serverMessages, rolesMap };

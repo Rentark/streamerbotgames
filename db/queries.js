@@ -100,3 +100,25 @@ export const getTopByLevel = db.prepare(`
   ORDER BY level DESC, xp DESC
   LIMIT 10
 `);
+
+/** Get a jackpot row by id. Returns undefined if not found. */
+export const getJackpot = db.prepare(`
+  SELECT * FROM cosmos_jackpots WHERE id = ?
+`);
+ 
+/** Upsert a jackpot row with a starting amount (used during seeding). */
+export const seedJackpot = db.prepare(`
+  INSERT OR IGNORE INTO cosmos_jackpots (id, amount) VALUES (?, ?)
+`);
+ 
+/** Add contribution to jackpot (atomic integer add). */
+export const contributeJackpot = db.prepare(`
+  UPDATE cosmos_jackpots SET amount = amount + ? WHERE id = ?
+`);
+ 
+/** Reset jackpot to seed after a win. */
+export const resetJackpot = db.prepare(`
+  UPDATE cosmos_jackpots
+  SET amount = ?, last_won_at = ?, last_won_by = ?
+  WHERE id = ?
+`);

@@ -2,7 +2,8 @@ import { parseAmount } from '../../../utils/parseAmount.js';
 
 /**
  * !dice <bet|%|all>
- * Rolls a d6. Win doubles the bet (configurable). Luck shifts win probability.
+ * Rolls a d6. Win doubles the bet. Luck shifts win probability.
+ * Contributes to jackpot and can trigger it.
  */
 export const diceCommand = {
   name: 'dice',
@@ -11,7 +12,8 @@ export const diceCommand = {
 
   async execute(ctx) {
     const { user, args, reply, services } = ctx;
-    const { messageService, diceService, luckService, progression, template, config, db } = services;
+    const { messageService, diceService, luckService, progression,
+            jackpotService, template, config, db } = services;
 
     const fetchBal = () => messageService.getStreamElementsPoints(user);
     const bet = await parseAmount(args[0], fetchBal);
@@ -38,6 +40,12 @@ export const diceCommand = {
     const luck   = luckService.computeLuck(player);
     const result = diceService.roll(bet, luck);
 
+    // ── Jackpot contribution ──────────────────────────────────────────────
+    for (const jpId of Object.keys(config.jackpots ?? {})) {
+      jackpotService.contribute(jpId, bet);
+    }
+
+    // ── SE delta ──────────────────────────────────────────────────────────
     const se = await messageService.setStreamElementsReward(user, result.net);
     if (!se.success) {
       return reply(template.prepareMessage(config.messages.rewardFail, { statusCode: se.response?.statusCode }));
@@ -60,5 +68,17 @@ export const diceCommand = {
 
     if (leveled) msg += template.formatLevelUp(newLevel, perksUnlocked);
     await reply(msg);
+
+    // ── Jackpot trigger ───────────────────────────────────────────────────
+    for (const jpId of Object.keys(config.jackpots ?? {})) {
+      if (jackpotService.tryTrigger(jpId, bet, luck)) {
+        const won   = jackpotService.claim(jpId, user);
+        const jpCfg = config.jackpots[jpId];
+        const jp    = await messageService.setStreamElementsReward(user, won);
+        if (jp.success) {
+          await reply(template.formatJackpotWon({ username: user, amount: won, name: jpCfg.name, emoji: jpCfg.emoji }));
+        }
+      }
+    }
   }
 };

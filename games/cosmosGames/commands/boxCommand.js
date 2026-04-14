@@ -5,14 +5,13 @@ export const boxCommand = {
 
   async execute(ctx) {
     const { user, reply, services } = ctx;
-    const { messageService, boxService, progression, template, config, db, recentChatters } = services;
+    const { messageService, boxService, progression, jackpotService,
+            template, config, db, recentChatters } = services;
 
     const balance = await messageService.getStreamElementsPoints(user);
     if (balance == null) return reply(template.prepareMessage(config.messages.fetchFailed, { username: user }));
 
     const player = db.getOrCreate(user);
-
-    // recentChatters excludes the opener
     const chattersForChaos = [...recentChatters.keys()].filter(u => u !== user);
     const result = boxService.openBox(player, balance, chattersForChaos);
 
@@ -22,7 +21,13 @@ export const boxCommand = {
       }));
     }
 
-    // Apply SE delta for opener
+    // ── Jackpot contribution (using box cost as bet proxy) ────────────────
+    const cost = boxService.getCost(player.level);
+    for (const jpId of Object.keys(config.jackpots ?? {})) {
+      jackpotService.contribute(jpId, cost);
+    }
+
+    // ── Apply SE delta for opener ──────────────────────────────────────────
     if (result.selfDelta !== 0) {
       const se = await messageService.setStreamElementsReward(user, result.selfDelta);
       if (!se.success) {
@@ -30,7 +35,7 @@ export const boxCommand = {
       }
     }
 
-    // Handle type-specific messaging
+    // ── Type-specific messaging ────────────────────────────────────────────
     if (result.type === 'luck_boost') {
       db.save(player);
       return reply(template.prepareMessage(config.messages.boxLuckBoost, {
@@ -44,7 +49,6 @@ export const boxCommand = {
     }
 
     if (result.type === 'chaos' && result.chaosChatters?.length) {
-      // Fetch balances and deduct concurrently (fire-and-forget result on individual failures)
       const deductions = result.chaosChatters.map(async (chatter) => {
         const bal = await messageService.getStreamElementsPoints(chatter);
         if (bal == null || bal <= 0) return;
@@ -66,5 +70,19 @@ export const boxCommand = {
     await reply(template.prepareMessage(config.messages.boxResult, {
       username: user, emoji: result.emoji, result: result.label, balance: newBalance
     }));
+
+    // ── Jackpot trigger ────────────────────────────────────────────────────
+    const player2 = db.getOrCreate(user); // re-read for updated level
+    const luck = services.luckService?.computeLuck(player2) ?? 1;
+    for (const jpId of Object.keys(config.jackpots ?? {})) {
+      if (jackpotService.tryTrigger(jpId, cost, luck)) {
+        const won   = jackpotService.claim(jpId, user);
+        const jpCfg = config.jackpots[jpId];
+        const jp    = await messageService.setStreamElementsReward(user, won);
+        if (jp.success) {
+          await reply(template.formatJackpotWon({ username: user, amount: won, name: jpCfg.name, emoji: jpCfg.emoji }));
+        }
+      }
+    }
   }
 };
