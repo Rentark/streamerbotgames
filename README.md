@@ -453,6 +453,147 @@ SQLite database is created automatically at `bot.db` in the project root. Tables
 
 ---
 
-## License
+## Cosmos Casino — New Features (patch)
 
-[Specify license if applicable]
+### Centralized Currency Config
+
+All games now share a single currency definition in `config/currencyConfig.js`.
+
+```js
+// config/currencyConfig.js
+export const currencyConfig = {
+  name: 'зірочки',
+  partialName: 'зіроч',
+  endings: { '0': 'ок', '1': 'ку', '2-4': 'ки' },
+  symbol: '✨',
+};
+
+export function formatCurrency(amount) { … } // "500 зірочок"
+export function getCurrencyEnding(amount) { … } // "ок", "ку", "ки"
+```
+
+`gameConfig.js` (Knock, Starfall) imports `rewardTypes` from this file.
+`cosmosConfig.js` imports `currencyConfig` and exposes it as `config.currency`.
+`CosmosMessageTemplate` auto-injects `{c}` = `currencyConfig.symbol` (`✨`) into every template.
+To rename the currency sitewide, change `currencyConfig.js` only.
+
+---
+
+### Slots — Outcome-first reel builder
+
+The slot machine has been redesigned with two key changes:
+
+**1. Weights moved to payouts (not symbols)**
+
+Win rates are now directly readable in `cosmosConfig.js`:
+
+```js
+reels: {
+  symbols: [
+    { id: 'jackpot', emojis: ['🌟', '⭐'],    dust: false },
+    { id: 'diamond', emojis: ['💎', '💍'],    dust: false },
+    …
+  ],
+  payouts: {
+    triple_jackpot: { mult: 20, xp: 100, weight: 1,   label: '…' },
+    triple_diamond: { mult: 10, xp: 50,  weight: 3,   label: '…' },
+    none:           { mult: 0,  xp: 2,   weight: 250, label: null },
+  },
+}
+```
+
+`weight` on `none` / losing outcomes is penalised by luck; winning outcome weights are boosted.
+
+**2. Per-category emoji arrays**
+
+Each symbol category holds multiple `emojis`. The machine picks ONE emoji per category per spin so that:
+- `triple_diamond` always shows 3 of the *same* emoji (all `💎` or all `💍`, never mixed).
+- `double_diamond` always shows 2 matching + 1 from a different category.
+- `triple_any` / `double_any` use categories that don't have their own specific payout entry.
+
+---
+
+### Progressive Jackpot
+
+A progressive jackpot pool is fed by every `!spin`, `!dice`, and `!box` bet (1% of bet by default).
+
+| Command | Aliases | Description |
+|---|---|---|
+| `!jackpot` | `!джекпот`, `!jp` | Show current jackpot amount(s) |
+
+The jackpot triggers randomly (base 0.1% per bet, scaled by bet size and luck). On trigger, the pool is awarded to the player via SE and reset to the seed amount.
+
+Multiple jackpots are supported — add more entries under `config.jackpots` in `cosmosConfig.js`.
+
+Jackpot amounts persist in SQLite (`cosmos_jackpots` table) and survive restarts.
+
+```js
+jackpots: {
+  cosmic: {
+    name: 'Космічний Джекпот',
+    seedAmount: 1000,
+    contributionRate: 0.01,
+    baseChance: 0.001,
+    betChanceBonus: 0.001,
+    maxLuckBonus: 0.002,
+    emoji: '🌌',
+  },
+  // add more jackpots here
+},
+```
+
+---
+
+### Blackjack
+
+Lite blackjack for Twitch chat with two modes.
+
+| Command | Aliases | Description |
+|---|---|---|
+| `!bj <bet>` | `!blackjack`, `!блекджек` | Mode A: random chatter becomes dealer |
+| `!bj @user <bet>` | | Mode B: challenge a specific player |
+| `!bjconfirm` | `!bjyes`, `!bjтак` | Dealer accepts the game |
+| `!hit` | `!bjhit`, `!ще` | Draw another card |
+| `!stand` | `!bjstand`, `!стоп` | End your turn |
+
+**Mode A** — No target specified: a random chatter from recent chat is selected as dealer.
+**Mode B** — Target specified: that player is invited to be dealer.
+
+In both modes the selected player has 60 seconds to `!bjconfirm`. If they don't respond, the bot becomes dealer and the game starts automatically.
+
+**Game flow:**
+1. Dealer confirms (or times out → bot dealer).
+2. Both sides receive 2 cards; dealer's first card is hidden (`??`).
+3. Challenger plays first (`!hit` / `!stand`). Bust → instant loss.
+4. Dealer plays: bot auto-follows standard rules (hit until ≥17); human dealer uses `!hit`/`!stand`.
+5. Reveal and compare totals. Higher wins without busting.
+
+**PvP economy:** winner gains `+bet` SE points; loser loses `-bet`.
+**Bot dealer:** challenger wins/loses points against the house (no transfer partner).
+
+**Lite rules:** no splits, no insurance, no double-down. Ace = 1 or 11 (best). Blackjack (21 in 2 cards) = instant win.
+
+---
+
+## New / Changed Files
+
+| File | Status | Notes |
+|---|---|---|
+| `config/currencyConfig.js` | NEW | Centralized currency name + formatting |
+| `db/jackpotDb.js` | NEW | Jackpot table init + prepared statements |
+| `services/cosmos/JackpotService.js` | NEW | Progressive jackpot logic |
+| `services/cosmos/BlackjackService.js` | NEW | Pure card logic |
+| `services/cosmos/SlotsService.js` | REPLACED | Outcome-first reel builder |
+| `games/cosmosGames/cosmosConfig.js` | REPLACED | New reel/jackpot/blackjack/currency config |
+| `games/cosmosGames/cosmosGame.js` | UPDATED | Injects jackpotService, blackjackService, blackjackSessions, sendMessage |
+| `games/cosmosGames/cosmosModule.js` | UPDATED | Registers jackpot + blackjack commands |
+| `games/cosmosGames/commands/spinCommand.js` | UPDATED | Jackpot contribution + trigger |
+| `games/cosmosGames/commands/diceCommand.js` | UPDATED | Jackpot contribution + trigger |
+| `games/cosmosGames/commands/boxCommand.js` | UPDATED | Jackpot contribution + trigger |
+| `games/cosmosGames/commands/jackpotCommand.js` | NEW | `!jackpot` |
+| `games/cosmosGames/commands/blackjackCommand.js` | NEW | `!bj` (+ shared game-start helpers) |
+| `games/cosmosGames/commands/blackjackConfirmCommand.js` | NEW | `!bjconfirm` |
+| `games/cosmosGames/commands/blackjackHitCommand.js` | NEW | `!hit` |
+| `games/cosmosGames/commands/blackjackStandCommand.js` | NEW | `!stand` |
+| `utils/messageTemplates/CosmosMessageTemplate.js` | UPDATED | Auto-injects `{c}` currency symbol |
+
