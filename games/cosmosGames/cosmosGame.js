@@ -17,6 +17,7 @@ import { ProgressionService }    from '../../services/cosmos/ProgressionService.
 import { LuckService }           from '../../services/cosmos/LuckService.js';
 import { JackpotService }        from '../../services/cosmos/JackpotService.js';
 import { BlackjackService }      from '../../services/cosmos/BlackjackService.js';
+import { StreakService }         from '../../services/cosmos/StreakService.js';
 import { CosmosMessageTemplate } from '../../utils/messageTemplates/CosmosMessageTemplate.js';
 import { getPlayer, createPlayer, updatePlayer } from '../../db/queries.js';
 import { registerCosmosModule }  from './cosmosModule.js';
@@ -30,9 +31,10 @@ import '../../db/db.js';
  * CosmosGame
  * Space-themed Twitch chat casino.
  * Economy: StreamElements points (SE API).
- * Progression: level, XP, luck, shield, daily — SQLite.
+ * Progression: level, XP (% of bet), luck, shield, daily — SQLite.
  * Jackpot: progressive pool accumulated from all bets — SQLite.
  * Blackjack: in-memory session state.
+ * Lose-streak protection: in-memory streak tracking per user.
  * Architecture: CommandBus + middleware pipeline.
  */
 class CosmosGame {
@@ -60,13 +62,9 @@ class CosmosGame {
     this.luckService     = new LuckService(config);
     this.jackpotService  = new JackpotService(config);
     this.blackjackService = new BlackjackService();
+    this.streakService   = new StreakService(config);
     this.template        = new CosmosMessageTemplate(config);
 
-    /**
-     * Shared services injected into every ctx.
-     * `sendMessage` and `blackjackSessions` are needed by blackjack commands
-     * which fire async callbacks outside of the normal ctx.reply path.
-     */
     this.services = {
       messageService:    this.messageService,
       slotsService:      this.slotsService,
@@ -78,11 +76,11 @@ class CosmosGame {
       jackpotService:    this.jackpotService,
       blackjackService:  this.blackjackService,
       blackjackSessions: this.blackjackSessions,
+      streakService:     this.streakService,
       template:          this.template,
       config,
       recentChatters:    this.recentChatters,
 
-      /** Direct message sender for timeout/async callbacks that lack ctx.reply */
       sendMessage: (msg) => this._send(msg),
 
       db: {
@@ -92,7 +90,7 @@ class CosmosGame {
         },
         save: (player) => {
           updatePlayer.run(
-            0,                // stardust unused — SE is source of truth
+            0,
             player.level,
             player.xp,
             player.base_luck,
@@ -140,7 +138,6 @@ class CosmosGame {
     const user = normalizeUsername(username);
     if (!user) return;
 
-    // Always track chatters for chaos box
     this.recentChatters.set(user, Date.now());
     this._pruneRecentChatters();
 

@@ -1,17 +1,23 @@
 import { parseAmount } from '../../../utils/parseAmount.js';
+import { calcXp }      from '../../../utils/calcXp.js';
 import { normalizeUsername } from '../state.js';
 
 /**
  * !bj <bet|%|all>          → Mode A: pick random chatter as dealer
  * !bj @user <bet|%|all>    → Mode B: challenge specific player
  *
- * Selected player has `config.blackjack.confirmTimeoutMs` ms to !bjconfirm.
- * On timeout the bot becomes dealer and the game starts automatically.
+ * Streak protection (bot-dealer mode only):
+ *   When the challenger has >= lossesBeforeBoost consecutive losses,
+ *   the bot dealer's hit-until threshold is reduced by
+ *   `streakProtection.dealerHitUntilReduction`, making it stand earlier and
+ *   more likely to bust.
+ *
+ * XP: all amounts are calcXp(config.blackjack.xpXxx, bet) — % of bet.
  */
 export const blackjackCommand = {
   name: 'blackjack',
   aliases: new Set(['!bj', '!blackjack', '!блекджек']),
-  cooldown: 0, // session state manages its own limits
+  cooldown: 0,
 
   async execute(ctx) {
     const { user, args, reply, services } = ctx;
@@ -20,7 +26,6 @@ export const blackjackCommand = {
 
     const bjCfg = config.blackjack;
 
-    // Already in a game?
     if (blackjackSessions.has(user)) {
       return reply(template.prepareMessage(config.messages.bjAlreadyActive, { username: user }));
     }
@@ -51,28 +56,23 @@ export const blackjackCommand = {
     }
 
     // ── Determine target ──────────────────────────────────────────────────
-    let target     = null;
-    let botDealer  = false;
+    let target    = null;
+    let botDealer = false;
 
     if (targetRaw) {
-      // Mode B — specific player
       target = normalizeUsername(targetRaw.startsWith('@') ? targetRaw.slice(1) : targetRaw);
       if (!target || target === user) {
         return reply(template.prepareMessage(config.messages.duelSelf, { sender: user }));
       }
-
-      // Validate target can afford
       const targetBal = await messageService.getStreamElementsPoints(target);
       if (targetBal == null || targetBal < bet) {
         return reply(template.prepareMessage(config.messages.bjTargetNoFunds, { target, bet }));
       }
     } else {
-      // Mode A — random chatter
       const candidates = [...recentChatters.keys()].filter(u => u !== user && !blackjackSessions.has(u));
       if (candidates.length) {
         target = candidates[Math.floor(Math.random() * candidates.length)];
       } else {
-        // No chatters available → bot dealer immediately
         botDealer = true;
       }
     }
@@ -95,22 +95,18 @@ export const blackjackCommand = {
     blackjackSessions.set(user, session);
 
     if (botDealer) {
-      // Start immediately
       await _startGame(session, services, sendMessage, config, template, blackjackService);
       return;
     }
 
-    // Notify target
     const msgKey = targetRaw ? 'bjChallengePvp' : 'bjChallengeRandom';
     await sendMessage(template.prepareMessage(config.messages[msgKey], {
       challenger: user, target, bet
     }));
 
-    // Confirm timeout
     session.confirmTimeoutHandle = setTimeout(async () => {
       const s = blackjackSessions.get(user);
       if (!s || s.state !== 'waiting_confirm') return;
-
       s.botIsDealer = true;
       s.dealer      = null;
       await sendMessage(template.prepareMessage(config.messages.bjBotDealer, { dealer: target }));
@@ -119,38 +115,27 @@ export const blackjackCommand = {
   }
 };
 
-// ── Shared game-start helper ──────────────────────────────────────────────────
+// ── Game-start helper ─────────────────────────────────────────────────────────
 
-/**
- * Deal initial cards, send the opening board message, set up turn timeout.
- * Called from blackjackCommand (bot path) and blackjackConfirmCommand.
- */
 export async function _startGame(session, services, sendMessage, config, template, blackjackService) {
-  const { messageService } = services;
-
   session.state = 'challenger_turn';
   session.deck  = blackjackService.createDeck();
 
-  // Deal 2 cards each
   session.challengerHand.push(blackjackService.dealCard(session.deck));
   session.dealerHand.push(    blackjackService.dealCard(session.deck));
   session.challengerHand.push(blackjackService.dealCard(session.deck));
   session.dealerHand.push(    blackjackService.dealCard(session.deck));
 
-  // Instant win check
   if (blackjackService.isBlackjack(session.challengerHand)) {
     await _resolveBlackjack(session, services, sendMessage, config, template, blackjackService);
     return;
   }
 
   const dealerName = session.botIsDealer ? 'Бот' : `@${session.dealer}`;
-  const cHand      = blackjackService.formatHandSummary(session.challengerHand);
-  const dHand      = blackjackService.formatHandSummary(session.dealerHand, true);
-
   await sendMessage(template.prepareMessage(config.messages.bjDeal, {
     challenger:     `@${session.challenger}`,
-    challengerHand: cHand,
-    dealerHand:     dHand,
+    challengerHand: blackjackService.formatHandSummary(session.challengerHand),
+    dealerHand:     blackjackService.formatHandSummary(session.dealerHand, true),
     dealer:         dealerName,
   }));
 
@@ -161,7 +146,6 @@ export async function _startGame(session, services, sendMessage, config, templat
 
 export function _setTurnTimeout(session, services, sendMessage, config, template, blackjackService) {
   if (session.turnTimeoutHandle) clearTimeout(session.turnTimeoutHandle);
-
   const { blackjackSessions } = services;
 
   session.turnTimeoutHandle = setTimeout(async () => {
@@ -171,7 +155,6 @@ export function _setTurnTimeout(session, services, sendMessage, config, template
     const activeUser = s.state === 'challenger_turn' ? s.challenger : s.dealer;
     await sendMessage(template.prepareMessage(config.messages.bjTimeout, { username: `@${activeUser}` }));
 
-    // Auto-stand
     if (s.state === 'challenger_turn') {
       await _challengerStand(s, services, sendMessage, config, template, blackjackService);
     } else if (s.state === 'dealer_turn') {
@@ -186,12 +169,10 @@ export async function _challengerStand(session, services, sendMessage, config, t
   if (session.botIsDealer) {
     await _botDealerPlay(session, services, sendMessage, config, template, blackjackService);
   } else {
-    // PvP: hand off to dealer
     session.state = 'dealer_turn';
-    const dHand = blackjackService.formatHandSummary(session.dealerHand); // reveal all
     await sendMessage(template.prepareMessage(config.messages.bjDealerTurnPvp, {
       dealer: `@${session.dealer}`,
-      hand:   dHand,
+      hand:   blackjackService.formatHandSummary(session.dealerHand),
     }));
     _setTurnTimeout(session, services, sendMessage, config, template, blackjackService);
   }
@@ -212,8 +193,14 @@ export async function _botDealerPlay(session, services, sendMessage, config, tem
     hand:   blackjackService.formatHandSummary(session.dealerHand),
   }));
 
-  // Hit until ≥17
-  while (blackjackService.botShouldHit(session.dealerHand)) {
+  // ── Streak protection: reduce dealer hit-until threshold ──────────────
+  const { streakService } = services;
+  const reduction    = streakService?.getDealerThresholdReduction(session.challenger) ?? 0;
+  const hitUntil     = Math.max(12, config.blackjack.dealerHitUntil - reduction);
+  // floor at 12 so the dealer never stands on anything absurd
+
+  // Hit until threshold
+  while (blackjackService.botShouldHit(session.dealerHand, hitUntil)) {
     session.dealerHand.push(blackjackService.dealCard(session.deck));
     await sendMessage(template.prepareMessage(config.messages.bjDealerHit, {
       dealer: 'Бот',
@@ -232,22 +219,26 @@ export async function _botDealerPlay(session, services, sendMessage, config, tem
 // ── Dealer bust ───────────────────────────────────────────────────────────────
 
 async function _dealerBust(session, services, sendMessage, config, template, blackjackService) {
-  const { messageService, progression, db, blackjackSessions } = services;
+  const { messageService, progression, streakService, db, blackjackSessions } = services;
   const bjCfg    = config.blackjack;
   const dealerName = session.botIsDealer ? 'Бот' : `@${session.dealer}`;
 
-  // Challenger wins
   await messageService.setStreamElementsReward(session.challenger, session.bet);
+
+  const xpEarned = calcXp(bjCfg.xpWin, session.bet);
   const player = db.getOrCreate(session.challenger);
-  const { leveled, newLevel, perksUnlocked } = progression.addXP(player, bjCfg.xpWin);
+  const { leveled, newLevel, perksUnlocked } = progression.addXP(player, xpEarned);
   db.save(player);
+
+  // Record win for streak (bot mode only)
+  if (session.botIsDealer) streakService?.recordWin(session.challenger);
 
   let msg = template.prepareMessage(config.messages.bjDealerBust, {
     dealer:     dealerName,
     hand:       blackjackService.formatHandSummary(session.dealerHand),
     challenger: `@${session.challenger}`,
     bet:        session.bet,
-    xp:         bjCfg.xpWin,
+    xp:         xpEarned,
   });
   if (leveled) msg += template.formatLevelUp(newLevel, perksUnlocked);
   await sendMessage(msg);
@@ -258,19 +249,23 @@ async function _dealerBust(session, services, sendMessage, config, template, bla
 // ── Blackjack (instant win) ───────────────────────────────────────────────────
 
 async function _resolveBlackjack(session, services, sendMessage, config, template, blackjackService) {
-  const { messageService, progression, db, blackjackSessions } = services;
+  const { messageService, progression, streakService, db, blackjackSessions } = services;
   const bjCfg = config.blackjack;
 
   await messageService.setStreamElementsReward(session.challenger, session.bet);
+
+  const xpEarned = calcXp(bjCfg.xpBlackjack, session.bet);
   const player = db.getOrCreate(session.challenger);
-  const { leveled, newLevel, perksUnlocked } = progression.addXP(player, bjCfg.xpBlackjack);
+  const { leveled, newLevel, perksUnlocked } = progression.addXP(player, xpEarned);
   db.save(player);
+
+  if (session.botIsDealer) streakService?.recordWin(session.challenger);
 
   let msg = template.prepareMessage(config.messages.bjPlayerBlackjack, {
     username: `@${session.challenger}`,
     hand:     blackjackService.formatHandSummary(session.challengerHand),
     bet:      session.bet,
-    xp:       bjCfg.xpBlackjack,
+    xp:       xpEarned,
   });
   if (leveled) msg += template.formatLevelUp(newLevel, perksUnlocked);
   await sendMessage(msg);
@@ -281,7 +276,7 @@ async function _resolveBlackjack(session, services, sendMessage, config, templat
 // ── Final resolution ──────────────────────────────────────────────────────────
 
 export async function _resolveGame(session, services, sendMessage, config, template, blackjackService) {
-  const { messageService, progression, db, blackjackSessions } = services;
+  const { messageService, progression, streakService, db, blackjackSessions } = services;
   const bjCfg    = config.blackjack;
   const winner   = blackjackService.determineWinner(session.challengerHand, session.dealerHand);
   const cVal     = blackjackService.getHandValue(session.challengerHand);
@@ -295,16 +290,16 @@ export async function _resolveGame(session, services, sendMessage, config, templ
     if (!session.botIsDealer && session.dealer) {
       await messageService.setStreamElementsReward(session.dealer, -session.bet);
     }
+    if (session.botIsDealer) streakService?.recordWin(session.challenger);
+
+    const xpEarned = calcXp(bjCfg.xpWin, session.bet);
     const player = db.getOrCreate(session.challenger);
-    const { leveled, newLevel, perksUnlocked } = progression.addXP(player, bjCfg.xpWin);
+    const { leveled, newLevel, perksUnlocked } = progression.addXP(player, xpEarned);
     db.save(player);
+
     msg = template.prepareMessage(config.messages.bjWinChallenger, {
-      challenger:    `@${session.challenger}`,
-      challengerVal: cVal,
-      dealer:        dealerName,
-      dealerVal:     dVal,
-      bet:           session.bet,
-      xp:            bjCfg.xpWin,
+      challenger: `@${session.challenger}`, challengerVal: cVal,
+      dealer: dealerName, dealerVal: dVal, bet: session.bet, xp: xpEarned,
     });
     if (leveled) msg += template.formatLevelUp(newLevel, perksUnlocked);
 
@@ -313,29 +308,33 @@ export async function _resolveGame(session, services, sendMessage, config, templ
     if (!session.botIsDealer && session.dealer) {
       await messageService.setStreamElementsReward(session.dealer, session.bet);
     }
+    if (session.botIsDealer) streakService?.recordLoss(session.challenger);
+
+    const xpEarned = calcXp(bjCfg.xpLose, session.bet);
     const player = db.getOrCreate(session.challenger);
-    const { leveled, newLevel, perksUnlocked } = progression.addXP(player, bjCfg.xpLose);
+    const { leveled, newLevel, perksUnlocked } = progression.addXP(player, xpEarned);
     db.save(player);
+
     msg = template.prepareMessage(config.messages.bjWinDealer, {
-      dealer:        dealerName,
-      dealerVal:     dVal,
-      challenger:    `@${session.challenger}`,
-      challengerVal: cVal,
-      bet:           session.bet,
-      xp:            bjCfg.xpLose,
+      dealer: dealerName, dealerVal: dVal,
+      challenger: `@${session.challenger}`, challengerVal: cVal,
+      bet: session.bet, xp: xpEarned,
     });
     if (leveled) msg += template.formatLevelUp(newLevel, perksUnlocked);
 
   } else {
-    // Push — return bet (no SE change needed)
+    // Push — no SE change
+    if (session.botIsDealer) streakService?.recordLoss(session.challenger);
+    // push counts as a loss for streak purposes (no win = no reset)
+
+    const xpEarned = calcXp(bjCfg.xpPush, session.bet);
     const player = db.getOrCreate(session.challenger);
-    const { leveled, newLevel, perksUnlocked } = progression.addXP(player, bjCfg.xpPush);
+    const { leveled, newLevel, perksUnlocked } = progression.addXP(player, xpEarned);
     db.save(player);
+
     msg = template.prepareMessage(config.messages.bjPush, {
-      challenger:    `@${session.challenger}`,
-      challengerVal: cVal,
-      dealerVal:     dVal,
-      xp:            bjCfg.xpPush,
+      challenger: `@${session.challenger}`, challengerVal: cVal,
+      dealerVal: dVal, xp: xpEarned,
     });
     if (leveled) msg += template.formatLevelUp(newLevel, perksUnlocked);
   }

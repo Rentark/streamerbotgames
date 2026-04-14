@@ -1,8 +1,13 @@
 import { parseAmount } from '../../../utils/parseAmount.js';
+import { calcXp }      from '../../../utils/calcXp.js';
 
 /**
  * !spin <bet|%|all>
  * Spins the 3-reel slot machine. Contributes to jackpot and can trigger it.
+ *
+ * Streak protection: if the user has `lossesBeforeBoost` consecutive losses,
+ * their effective luck is boosted by `streakProtection.luckBoost` for this spin.
+ * XP awarded = calcXp(payout.xp, bet)  — where payout.xp is a % of bet.
  */
 export const spinCommand = {
   name: 'spin',
@@ -12,7 +17,7 @@ export const spinCommand = {
   async execute(ctx) {
     const { user, args, reply, services } = ctx;
     const { messageService, slotsService, luckService, progression,
-            jackpotService, template, config, db } = services;
+            jackpotService, streakService, template, config, db } = services;
 
     const fetchBal = () => messageService.getStreamElementsPoints(user);
     const bet = await parseAmount(args[0], fetchBal);
@@ -38,8 +43,20 @@ export const spinCommand = {
     }
 
     const player = db.getOrCreate(user);
-    const luck   = luckService.computeLuck(player);
-    const result = slotsService.spin(bet, luck);
+
+    // ── Streak protection: boost effective luck if needed ─────────────────
+    const baseLuck    = luckService.computeLuck(player);
+    const streakBonus = streakService.getLuckBonus(user);
+    const effectiveLuck = Math.min(baseLuck + streakBonus, config.maxTotalLuck + streakBonus);
+
+    const result = slotsService.spin(bet, effectiveLuck);
+
+    // ── Update streak ─────────────────────────────────────────────────────
+    if (result.win > 0) {
+      streakService.recordWin(user);
+    } else {
+      streakService.recordLoss(user);
+    }
 
     // ── Jackpot contribution (before payout) ─────────────────────────────
     for (const jpId of Object.keys(config.jackpots ?? {})) {
@@ -59,28 +76,30 @@ export const spinCommand = {
       }
     }
 
+    // ── XP: % of bet ──────────────────────────────────────────────────────
+    const xpEarned = calcXp(result.xp, bet);
     const newBalance = balance + result.net;
-    const { leveled, newLevel, perksUnlocked } = progression.addXP(player, result.xp);
+    const { leveled, newLevel, perksUnlocked } = progression.addXP(player, xpEarned);
     db.save(player);
 
     let msg;
     if (result.win > 0) {
       msg = template.prepareMessage(config.messages.spinWin, {
         reels: result.reelDisplay, username: user, label: result.label ?? '',
-        bet, win: result.win, balance: newBalance, xp: result.xp
+        bet, win: result.win, balance: newBalance, xp: xpEarned
       });
     } else {
       msg = template.prepareMessage(config.messages.spinLose, {
-        reels: result.reelDisplay, username: user, bet, balance: newBalance, xp: result.xp
+        reels: result.reelDisplay, username: user, bet, balance: newBalance, xp: xpEarned
       });
     }
 
     if (leveled) msg += template.formatLevelUp(newLevel, perksUnlocked);
     await reply(msg);
 
-    // ── Jackpot trigger check (after normal win message) ─────────────────
+    // ── Jackpot trigger check ─────────────────────────────────────────────
     for (const jpId of Object.keys(config.jackpots ?? {})) {
-      if (jackpotService.tryTrigger(jpId, bet, luck)) {
+      if (jackpotService.tryTrigger(jpId, bet, effectiveLuck)) {
         const won   = jackpotService.claim(jpId, user);
         const jpCfg = config.jackpots[jpId];
         const jp    = await messageService.setStreamElementsReward(user, won);

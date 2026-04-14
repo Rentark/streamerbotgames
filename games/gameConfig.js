@@ -1,3 +1,5 @@
+import { currencyConfig } from "config/currencyConfig";
+
 const gameConfigStarfall = {
   "gameName": {
     "single": "зорепад",
@@ -20,7 +22,13 @@ const gameConfigStarfall = {
   "minReward": 1000,
   "maxReward": 15000,
   "rewardFailMessage": "/me Помилка під час видачі балів! Статус код: {statusCode}",
-  "rewardTypes": {"name": "зірочки", "partialName": "зіроч", "0": "ок", "1": "ку", "2-3": "ки"},
+  "rewardTypes": {
+    name:        currencyConfig.name,
+    partialName: currencyConfig.partialName,
+    '0':         currencyConfig.endings['0'],
+    '1':         currencyConfig.endings['1'],
+    '2-3':       currencyConfig.endings['2-4'],   // starfall uses '2-3' key
+  },
   "secondsTypes": {
     "name": "секунда", "partialName": "секунд",
     "0": "",
@@ -80,7 +88,13 @@ const gameConfigKnock = {
   },
   "minReward": 10,
   "maxReward": 35,
-  "rewardTypes": {"name": "зірочки", "partialName": "зіроч", "0": "ок", "1": "ку", "2-3": "ки"},
+  "rewardTypes": {
+    name:        currencyConfig.name,
+    partialName: currencyConfig.partialName,
+    '0':         currencyConfig.endings['0'],
+    '1':         currencyConfig.endings['1'],
+    '2-3':       currencyConfig.endings['2-4'],   // starfall uses '2-3' key
+  }
 }
 
 const gameConfigRetypeWord = {
@@ -104,7 +118,7 @@ const gameConfigRetypeWord = {
     // used as a heuristic that the input was typed on an English layout.
     minUkrCyrillicLetters: 2,
     // Chat is lowercased; whole chat tokens matching this prefix are kept (e.g. moonos1love).
-    channelEmojiPrefixes: ['moonos1']
+    channelEmojiPrefixes: ['moonos1', 'mari', 'cusnee', 'panipy', 'm3lk1n', 'morymu', 'calyps60', 'skalii']
   },
   responseTemplate: '/me @{sender} намагався сказати: {text}'
 };

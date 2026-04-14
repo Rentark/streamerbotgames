@@ -8,8 +8,11 @@
  *  - Ace = 1 or 11 (best value that doesn't bust).
  *  - J / Q / K = 10.
  *  - Blackjack = 21 with exactly 2 cards.
- *  - Dealer must hit until ≥ 17 (bot mode).
- *  - No splits, no insurance, no double-down to keep it simple.
+ *  - Dealer must hit until ≥ dealerHitUntil (configurable, default 17).
+ *    When streak protection is active for the challenger, the threshold is
+ *    reduced by StreakService.getDealerThresholdReduction(), making the bot
+ *    dealer stand earlier and more likely to bust.
+ *  - No splits, no insurance, no double-down.
  */
 export class BlackjackService {
   constructor() {
@@ -45,7 +48,7 @@ export class BlackjackService {
   // ── Scoring ───────────────────────────────────────────────────────────────
 
   /**
-   * Calculate the best possible hand value (never exceeds 21 unless forced).
+   * Calculate the best possible hand value.
    * @param {Array<{ value: string }>} hand
    * @returns {number}
    */
@@ -64,7 +67,6 @@ export class BlackjackService {
       }
     }
 
-    // Downgrade aces from 11 → 1 while busted
     while (total > 21 && aces > 0) {
       total -= 10;
       aces--;
@@ -85,20 +87,14 @@ export class BlackjackService {
 
   // ── Formatting ────────────────────────────────────────────────────────────
 
-  /**
-   * Format a card for display.
-   * @param {{ suit: string, value: string }} card
-   * @returns {string}  e.g. "K♥"
-   */
   formatCard(card) {
     return `${card.value}${card.suit}`;
   }
 
   /**
-   * Format a hand as a space-separated string.
    * @param {Array} hand
-   * @param {boolean} hideFirst  – replace first card with "??"
-   * @returns {string}  e.g. "K♥ 5♦" or "?? Q♠"
+   * @param {boolean} hideFirst – replace first card with "??"
+   * @returns {string}
    */
   formatHand(hand, hideFirst = false) {
     return hand
@@ -107,7 +103,7 @@ export class BlackjackService {
   }
 
   /**
-   * Full hand summary: cards + total (or "??" for dealer's hidden card).
+   * Full hand summary with total.
    * @param {Array} hand
    * @param {boolean} hideFirst
    * @returns {string}  e.g. "[K♥ 5♦ = 15]"
@@ -115,46 +111,30 @@ export class BlackjackService {
   formatHandSummary(hand, hideFirst = false) {
     const display = this.formatHand(hand, hideFirst);
     if (hideFirst) {
-      // Show value of known cards only
-      const knownCards = hand.slice(1);
-      const knownValue = this.getHandValue(knownCards);
+      const knownValue = this.getHandValue(hand.slice(1));
       return `[${display} = ?+${knownValue}]`;
     }
-    const value = this.getHandValue(hand);
-    return `[${display} = ${value}]`;
+    return `[${display} = ${this.getHandValue(hand)}]`;
   }
 
   // ── Bot dealer logic ──────────────────────────────────────────────────────
 
   /**
    * Determine whether the bot dealer should hit.
-   * Standard rule: hit until hand value ≥ 17.
+   *
    * @param {Array} hand
+   * @param {number} [hitUntil=17] - dealer hits while hand value is below this.
+   *   Pass a reduced value (e.g. 15) when streak protection is active for the
+   *   challenger — the dealer stands earlier, increasing bust probability.
    * @returns {boolean}
    */
-  botShouldHit(hand) {
-    return this.getHandValue(hand) < 17;
-  }
-
-  /**
-   * Auto-play bot dealer from its current hand until it stands or busts.
-   * Mutates hand in place, drawing from deck.
-   *
-   * @param {Array} hand   – dealer's current hand (mutated)
-   * @param {Array} deck   – deck to draw from (mutated)
-   * @returns {Array}      – the final hand (same reference)
-   */
-  botPlay(hand, deck) {
-    while (this.botShouldHit(hand) && deck.length > 0) {
-      hand.push(this.dealCard(deck));
-    }
-    return hand;
+  botShouldHit(hand, hitUntil = 17) {
+    return this.getHandValue(hand) < hitUntil;
   }
 
   // ── Result evaluation ─────────────────────────────────────────────────────
 
   /**
-   * Determine the winner given two final hands.
    * @param {Array} challengerHand
    * @param {Array} dealerHand
    * @returns {'challenger' | 'dealer' | 'push'}
@@ -167,12 +147,12 @@ export class BlackjackService {
     const cVal           = this.getHandValue(challengerHand);
     const dVal           = this.getHandValue(dealerHand);
 
-    if (challengerBust)                         return 'dealer';
-    if (dealerBust)                             return 'challenger';
-    if (cBJ && !dBJ)                            return 'challenger';
-    if (dBJ && !cBJ)                            return 'dealer';
-    if (cVal > dVal)                            return 'challenger';
-    if (dVal > cVal)                            return 'dealer';
+    if (challengerBust)      return 'dealer';
+    if (dealerBust)          return 'challenger';
+    if (cBJ && !dBJ)         return 'challenger';
+    if (dBJ && !cBJ)         return 'dealer';
+    if (cVal > dVal)         return 'challenger';
+    if (dVal > cVal)         return 'dealer';
     return 'push';
   }
 

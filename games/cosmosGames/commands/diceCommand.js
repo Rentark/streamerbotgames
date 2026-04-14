@@ -1,9 +1,14 @@
 import { parseAmount } from '../../../utils/parseAmount.js';
+import { calcXp }      from '../../../utils/calcXp.js';
 
 /**
  * !dice <bet|%|all>
- * Rolls a d6. Win doubles the bet. Luck shifts win probability.
+ * Rolls a d6. Win doubles the bet. Luck + streak protection shift win probability.
  * Contributes to jackpot and can trigger it.
+ *
+ * Streak protection: if the user has `lossesBeforeBoost` consecutive losses,
+ * an extra `streakProtection.winChanceBoost` is added to their win probability.
+ * XP awarded = calcXp(config.dice.xpWin|xpLose, bet).
  */
 export const diceCommand = {
   name: 'dice',
@@ -13,7 +18,7 @@ export const diceCommand = {
   async execute(ctx) {
     const { user, args, reply, services } = ctx;
     const { messageService, diceService, luckService, progression,
-            jackpotService, template, config, db } = services;
+            jackpotService, streakService, template, config, db } = services;
 
     const fetchBal = () => messageService.getStreamElementsPoints(user);
     const bet = await parseAmount(args[0], fetchBal);
@@ -38,7 +43,17 @@ export const diceCommand = {
 
     const player = db.getOrCreate(user);
     const luck   = luckService.computeLuck(player);
-    const result = diceService.roll(bet, luck);
+
+    // ── Streak protection: extra win-chance bonus ─────────────────────────
+    const streakWinBonus = streakService.getWinChanceBonus(user);
+    const result = diceService.roll(bet, luck, streakWinBonus);
+
+    // ── Update streak ─────────────────────────────────────────────────────
+    if (result.won) {
+      streakService.recordWin(user);
+    } else {
+      streakService.recordLoss(user);
+    }
 
     // ── Jackpot contribution ──────────────────────────────────────────────
     for (const jpId of Object.keys(config.jackpots ?? {})) {
@@ -51,18 +66,22 @@ export const diceCommand = {
       return reply(template.prepareMessage(config.messages.rewardFail, { statusCode: se.response?.statusCode }));
     }
 
+    // ── XP: % of bet ──────────────────────────────────────────────────────
+    const xpEarned = calcXp(result.xp, bet);
     const newBalance = balance + result.net;
-    const { leveled, newLevel, perksUnlocked } = progression.addXP(player, result.xp);
+    const { leveled, newLevel, perksUnlocked } = progression.addXP(player, xpEarned);
     db.save(player);
 
     let msg;
     if (result.won) {
       msg = template.prepareMessage(config.messages.diceWin, {
-        dice: result.diceValue, username: user, bet, win: result.win, balance: newBalance, xp: result.xp
+        dice: result.diceValue, username: user, bet, win: result.win,
+        balance: newBalance, xp: xpEarned
       });
     } else {
       msg = template.prepareMessage(config.messages.diceLose, {
-        dice: result.diceValue, username: user, bet, balance: newBalance, xp: result.xp
+        dice: result.diceValue, username: user, bet,
+        balance: newBalance, xp: xpEarned
       });
     }
 
