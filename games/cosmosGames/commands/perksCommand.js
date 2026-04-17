@@ -1,6 +1,8 @@
+import { gameConfigCosmos } from './../cosmosConfig.js';
+
 export const perksCommand = {
   name: 'perks',
-  aliases: new Set(['!perks', '!перки', '!рівень']),
+  aliases: gameConfigCosmos.commands.perks,
   cooldown: 5_000,
 
   async execute(ctx) {

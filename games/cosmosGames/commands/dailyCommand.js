@@ -1,6 +1,8 @@
+import { gameConfigCosmos } from './../cosmosConfig.js';
+
 export const dailyCommand = {
   name: 'daily',
-  aliases: new Set(['!daily', '!щоденно']),
+  aliases: gameConfigCosmos.commands.daily,
 
   async execute(ctx) {
     const { user, reply, services } = ctx;

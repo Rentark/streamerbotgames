@@ -1,4 +1,4 @@
-import { currencyConfig } from "config/currencyConfig";
+import { currencyConfig } from "../config/currencyConfig.js";
 
 const gameConfigStarfall = {
   "gameName": {

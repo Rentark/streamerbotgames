@@ -7,6 +7,7 @@ import {
   loggingMiddleware,
   cooldownMiddleware,
   createGameEnabledMiddleware,
+  createFeatureMiddleware,
   createBotThrottleMiddleware,
 } from '../../services/middlewares/index.js';
 import { SlotsService }          from '../../services/cosmos/SlotsService.js';
@@ -22,9 +23,13 @@ import { CosmosMessageTemplate } from '../../utils/messageTemplates/CosmosMessag
 import { getPlayer, createPlayer, updatePlayer } from '../../db/queries.js';
 import { registerCosmosModule }  from './cosmosModule.js';
 import gameConfigCosmos          from './cosmosConfig.js';
-import { cosmosEnabled, setCosmosEnabled, normalizeUsername } from './state.js';
+import {
+  cosmosEnabled, setCosmosEnabled,
+  normalizeUsername,
+  isFeatureEnabled, setFeatureEnabled,
+  getAllFeatureFlags, enableAllFeatures, disableAllFeatures,
+} from './state.js';
 
-// Ensure cosmos tables exist
 import '../../db/db.js';
 
 /**
@@ -35,6 +40,7 @@ import '../../db/db.js';
  * Jackpot: progressive pool accumulated from all bets — SQLite.
  * Blackjack: in-memory session state.
  * Lose-streak protection: in-memory streak tracking per user.
+ * Per-feature enable/disable: spin, dice, duel, box, daily, blackjack.
  * Architecture: CommandBus + middleware pipeline.
  */
 class CosmosGame {
@@ -44,11 +50,7 @@ class CosmosGame {
     this.isRunning = false;
 
     this._botMessageTimes = [];
-
-    /** Map<username, lastSeenAt> — updated on every chat message for chaos box */
-    this.recentChatters = new Map();
-
-    /** Map<challengerUsername, BlackjackSession> */
+    this.recentChatters   = new Map();
     this.blackjackSessions = new Map();
 
     // ── Services ──────────────────────────────────────────────────────────────
@@ -80,9 +82,7 @@ class CosmosGame {
       template:          this.template,
       config,
       recentChatters:    this.recentChatters,
-
-      sendMessage: (msg) => this._send(msg),
-
+      sendMessage:       (msg) => this._send(msg),
       db: {
         getOrCreate: (username) => {
           createPlayer.run(username, Date.now());
@@ -103,11 +103,15 @@ class CosmosGame {
     };
 
     // ── CommandBus ────────────────────────────────────────────────────────────
+    // Pipeline order:
+    //   safeExecution → logging → gameEnabled (whole casino) →
+    //   featureEnabled (per game group) → botThrottle → cooldown → handler
     this.commandBus = new CommandBus({
       middlewares: [
         safeExecutionMiddleware,
         loggingMiddleware,
         createGameEnabledMiddleware(() => cosmosEnabled),
+        createFeatureMiddleware(isFeatureEnabled),    // ← per-feature gate
         createBotThrottleMiddleware(() => this._canBotSpeak()),
         cooldownMiddleware,
       ],
@@ -157,6 +161,30 @@ class CosmosGame {
     await this.commandBus.execute(ctx);
   }
 
+  // ── Feature management (public API for HTTP control routes) ───────────────
+
+  /**
+   * Enable or disable a named feature group.
+   * @param {string} feature  - 'spin' | 'dice' | 'duel' | 'box' | 'daily' | 'blackjack'
+   * @param {boolean} enabled
+   */
+  setFeature(feature, enabled) {
+    setFeatureEnabled(feature, enabled);
+    logger.info('CosmosGame feature changed via setFeature', { feature, enabled });
+  }
+
+  /** Enable every feature group. */
+  enableAllFeatures() {
+    enableAllFeatures();
+    logger.info('CosmosGame: all features enabled');
+  }
+
+  /** Disable every feature group. */
+  disableAllFeatures() {
+    disableAllFeatures();
+    logger.info('CosmosGame: all features disabled');
+  }
+
   // ── Internal helpers ──────────────────────────────────────────────────────
 
   _canBotSpeak() {
@@ -197,6 +225,7 @@ class CosmosGame {
     return {
       isRunning:        this.isRunning,
       enabled:          cosmosEnabled,
+      features:         getAllFeatureFlags(),
       gameId:           this.gameId,
       pendingDuels:     this.pvpService.pendingDuels.size,
       recentChatters:   this.recentChatters.size,

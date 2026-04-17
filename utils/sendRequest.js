@@ -15,7 +15,7 @@ async function sendRequest(params = {}) {
     // logger.info("Request params", { reqData });
     rawResponse = await fetch(url, reqData);
     let response = {};
-    logger.info("response from streamelements", {rawResponse})
+    // logger.info("response from streamelements", {rawResponse})
 
     const autoType = rawResponse.headers.get('content-type') ?? '';
     const parseAs =

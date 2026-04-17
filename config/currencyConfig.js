@@ -21,7 +21,7 @@ export const currencyConfig = {
   endings: { '0': 'ок', '1': 'ку', '2-4': 'ки' },
 
   /** Compact emoji symbol used inline in cosmos messages */
-  symbol: '✨',
+  symbol: 'moonos1Stars',
 };
 
 /**

@@ -1,5 +1,6 @@
 import { parseAmount } from '../../../utils/parseAmount.js';
 import { calcXp }      from '../../../utils/calcXp.js';
+import { gameConfigCosmos } from './../cosmosConfig.js';
 
 /**
  * !dice <bet|%|all>
@@ -12,7 +13,7 @@ import { calcXp }      from '../../../utils/calcXp.js';
  */
 export const diceCommand = {
   name: 'dice',
-  aliases: new Set(['!dice', '!кубик', '!рулетка']),
+  aliases: gameConfigCosmos.commands.dice,
   cooldown: 3_000,
 
   async execute(ctx) {
@@ -21,17 +22,15 @@ export const diceCommand = {
             jackpotService, streakService, template, config, db } = services;
 
     const fetchBal = () => messageService.getStreamElementsPoints(user);
-    const bet = await parseAmount(args[0], fetchBal);
+    let bet = await parseAmount(args[0], fetchBal);
 
     if (!bet) {
-      return reply(template.prepareMessage(config.messages.diceInvalidBet, {
-        username: user, minBet: config.minBet, maxBet: config.maxBet
-      }));
+      bet = config.minBet;
     }
 
-    if (bet < config.minBet || bet > config.maxBet) {
+    if (bet < 1 || bet > config.maxBet) {
       return reply(template.prepareMessage(config.messages.diceInvalidBet, {
-        username: user, minBet: config.minBet, maxBet: config.maxBet
+        username: user, minBet: 1, maxBet: config.maxBet
       }));
     }
 

@@ -1,4 +1,5 @@
 import { _challengerStand, _dealerStand } from './blackjackCommand.js';
+import { gameConfigCosmos } from './../cosmosConfig.js';
 
 /**
  * !stand
@@ -6,7 +7,7 @@ import { _challengerStand, _dealerStand } from './blackjackCommand.js';
  */
 export const blackjackStandCommand = {
   name: 'stand',
-  aliases: new Set(['!stand', '!bjstand', '!стоп', '!досить']),
+  aliases: gameConfigCosmos.commands.stand,
 
   async execute(ctx) {
     const { user, reply, services } = ctx;

@@ -87,15 +87,8 @@ export const updatePlayer = db.prepare(`
  
 // ── Leaderboards ─────────────────────────────────────────────────────────────
  
-export const getTopByStardust = db.prepare(`
-  SELECT username, stardust, level
-  FROM cosmos_players
-  ORDER BY stardust DESC
-  LIMIT 10
-`);
- 
 export const getTopByLevel = db.prepare(`
-  SELECT username, level, xp, stardust
+  SELECT username, level, xp
   FROM cosmos_players
   ORDER BY level DESC, xp DESC
   LIMIT 10

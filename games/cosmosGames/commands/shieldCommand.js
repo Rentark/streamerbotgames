@@ -1,6 +1,8 @@
+import { gameConfigCosmos } from './../cosmosConfig.js';
+
 export const shieldCommand = {
   name: 'shield',
-  aliases: new Set(['!shield', '!щит']),
+  aliases: gameConfigCosmos.commands.shield,
 
   async execute(ctx) {
     const { user, reply, services } = ctx;

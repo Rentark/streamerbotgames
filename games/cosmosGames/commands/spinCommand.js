@@ -1,6 +1,6 @@
 import { parseAmount } from '../../../utils/parseAmount.js';
 import { calcXp }      from '../../../utils/calcXp.js';
-
+import { gameConfigCosmos } from './../cosmosConfig.js';
 /**
  * !spin <bet|%|all>
  * Spins the 3-reel slot machine. Contributes to jackpot and can trigger it.
@@ -11,7 +11,7 @@ import { calcXp }      from '../../../utils/calcXp.js';
  */
 export const spinCommand = {
   name: 'spin',
-  aliases: new Set(['!spin', '!крутити', '!спін']),
+  aliases: gameConfigCosmos.commands.spin,
   cooldown: 3_000,
 
   async execute(ctx) {
@@ -20,12 +20,10 @@ export const spinCommand = {
             jackpotService, streakService, template, config, db } = services;
 
     const fetchBal = () => messageService.getStreamElementsPoints(user);
-    const bet = await parseAmount(args[0], fetchBal);
+    let bet = await parseAmount(args[0], fetchBal);
 
     if (!bet) {
-      return reply(template.prepareMessage(config.messages.spinInvalidBet, {
-        username: user, minBet: config.minBet, maxBet: config.maxBet
-      }));
+      bet = config.minBet;
     }
 
     if (bet < config.minBet || bet > config.maxBet) {

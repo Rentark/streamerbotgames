@@ -1,6 +1,8 @@
+import { gameConfigCosmos } from './../cosmosConfig.js';
+
 export const duelAcceptCommand = {
   name: 'duelAccept',
-  aliases: new Set(['!accept', '!прийняти']),
+  aliases: gameConfigCosmos.commands.duelAccept,
 
   async execute(ctx) {
     const { user, reply, services } = ctx;

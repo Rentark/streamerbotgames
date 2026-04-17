@@ -1,6 +1,7 @@
+import { gameConfigCosmos } from './../cosmosConfig.js';
 export const boxCommand = {
   name: 'box',
-  aliases: new Set(['!box', '!ящик', '!коробка']),
+  aliases: gameConfigCosmos.commands.box,
   cooldown: 10_000,
 
   async execute(ctx) {
@@ -68,7 +69,7 @@ export const boxCommand = {
     db.save(player);
     const newBalance = balance + result.selfDelta;
     await reply(template.prepareMessage(config.messages.boxResult, {
-      username: user, emoji: result.emoji, result: result.label, balance: newBalance
+      username: user, emoji: result.emoji, result: result.label, balance: newBalance, amount: result.selfDelta
     }));
 
     // ── Jackpot trigger ────────────────────────────────────────────────────

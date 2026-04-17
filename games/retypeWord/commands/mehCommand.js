@@ -2,7 +2,7 @@ import { rolesMap } from '../../../config/config.js';
 import { validateTranscriptionWithLLM } from '../../../services/LLMConnectorService.js';
 
 function isUserAllowedToBypassValidation(userRole, isSubscriber, monthsSubscribed, isFromSharedChatGuest) {
-  return (userRole === rolesMap['1'] && !isSubscriber) || (userRole === rolesMap['1'] && isSubscriber && monthsSubscribed < 3) || (userRole === rolesMap['1'] && isFromSharedChatGuest);
+  return (userRole === rolesMap['1'] && !isSubscriber) || (userRole === rolesMap['1'] && isSubscriber && monthsSubscribed < 3) || (userRole === rolesMap['1'] && isFromSharedChatGuest) || userRole === rolesMap['2'];
 }
 
 export const mehCommand = {

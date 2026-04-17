@@ -14,7 +14,7 @@ import {
 } from './state.js';
 import { registerRetypeWordModule } from './retypeWordModule.js';
 
-/** Lowercase EN → UKR layout map */
+/** EN → UKR layout map */
 const EN_TO_UKR = {
   q:'й',w:'ц',e:'у',r:'к',t:'е',y:'н',u:'г',i:'ш',o:'щ',p:'з','[':'х',']':'ї',
   a:'ф',s:'і',d:'в',f:'а',g:'п',h:'р',j:'о',k:'л',l:'д',';':'ж',"'":'є',
@@ -23,6 +23,16 @@ const EN_TO_UKR = {
   A:'Ф',S:'І',D:'В',F:'А',G:'П',H:'Р',J:'О',K:'Л',L:'Д',':':'Ж','"':'Є',
   Z:'Я',X:'Ч',C:'С',V:'М',B:'И',N:'Т',M:'Ь','<':'Б','>':'Ю','?':'.','~':'Ґ',
   '@':'"','$':';','^':':','&':'?',
+};
+
+const UKR_TO_EN = {
+  й:'q', ц:'w', у:'e', к:'r', е:'t', н:'y', г:'u', ш:'i', щ:'o', з:'p', х:'[', ї:']',
+  ф:'a', і:'s', в:'d', а:'f', п:'g', р:'h', о:'j', л:'k', д:'l', ж:';', є:"'",
+  я:'z', ч:'x', с:'c', м:'v', и:'b', т:'n', ь:'m', б:',', ю:'.', ґ:'`',
+
+  Й:'Q', Ц:'W', У:'E', К:'R', Е:'T', Н:'Y', Г:'U', Ш:'I', Щ:'O', З:'P', Х:'{', Ї:'}',
+  Ф:'A', І:'S', В:'D', А:'F', П:'G', Р:'H', О:'J', Л:'K', Д:'L', Ж:':', Є:'"',
+  Я:'Z', Ч:'X', С:'C', М:'V', И:'B', Т:'N', Ь:'M', Б:'<', Ю:'>', Ґ:'~'
 };
 
 /**
@@ -125,7 +135,7 @@ class RetypeWordGame {
       if (isLeadingMention || isEmoji) {
         out += chunk;
       } else {
-        for (const ch of chunk) out += EN_TO_UKR[ch] ?? ch;
+        for (const ch of chunk) out += EN_TO_UKR[ch] ?? UKR_TO_EN[ch];
       }
       wordIndex++;
     }

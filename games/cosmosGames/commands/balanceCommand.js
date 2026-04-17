@@ -1,6 +1,8 @@
+import { gameConfigCosmos } from './../cosmosConfig.js';
+
 export const balanceCommand = {
   name: 'balance',
-  aliases: new Set(['!balance', '!зірки', '!баланс']),
+  aliases: gameConfigCosmos.commands.balance,
   cooldown: 5_000,
 
   async execute(ctx) {

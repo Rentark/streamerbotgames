@@ -109,8 +109,12 @@ All endpoints are `GET`. The server listens on `http://127.0.0.1:3001`.
 | `GET /cosmos/status` | Cosmos Casino status |
 | `GET /games/enable-all` | Enable all games |
 | `GET /games/disable-all` | Disable all games |
-
----
+| `GET /cosmos/features` | Snapshot of all feature flags |
+| `GET /cosmos/features/enable-all` | Enable every feature group |
+| `GET /cosmos/features/disable-all` | Disable every feature group |
+| `GET /cosmos/feature/<name>/enable` | Enable a single feature (e.g. `/cosmos/feature/spin/enable`) |
+| `GET /cosmos/feature/<name>/disable` | Disable a single feature |
+| `GET /cosmos/feature/<name>/status` | Check whether a feature is enabled |
 
 ## Cosmos Casino
 
@@ -575,25 +579,82 @@ In both modes the selected player has 60 seconds to `!bjconfirm`. If they don't 
 
 ---
 
-## New / Changed Files
+## Cosmos Casino — Per-Feature Enable/Disable
 
-| File | Status | Notes |
-|---|---|---|
-| `config/currencyConfig.js` | NEW | Centralized currency name + formatting |
-| `db/jackpotDb.js` | NEW | Jackpot table init + prepared statements |
-| `services/cosmos/JackpotService.js` | NEW | Progressive jackpot logic |
-| `services/cosmos/BlackjackService.js` | NEW | Pure card logic |
-| `services/cosmos/SlotsService.js` | REPLACED | Outcome-first reel builder |
-| `games/cosmosGames/cosmosConfig.js` | REPLACED | New reel/jackpot/blackjack/currency config |
-| `games/cosmosGames/cosmosGame.js` | UPDATED | Injects jackpotService, blackjackService, blackjackSessions, sendMessage |
-| `games/cosmosGames/cosmosModule.js` | UPDATED | Registers jackpot + blackjack commands |
-| `games/cosmosGames/commands/spinCommand.js` | UPDATED | Jackpot contribution + trigger |
-| `games/cosmosGames/commands/diceCommand.js` | UPDATED | Jackpot contribution + trigger |
-| `games/cosmosGames/commands/boxCommand.js` | UPDATED | Jackpot contribution + trigger |
-| `games/cosmosGames/commands/jackpotCommand.js` | NEW | `!jackpot` |
-| `games/cosmosGames/commands/blackjackCommand.js` | NEW | `!bj` (+ shared game-start helpers) |
-| `games/cosmosGames/commands/blackjackConfirmCommand.js` | NEW | `!bjconfirm` |
-| `games/cosmosGames/commands/blackjackHitCommand.js` | NEW | `!hit` |
-| `games/cosmosGames/commands/blackjackStandCommand.js` | NEW | `!stand` |
-| `utils/messageTemplates/CosmosMessageTemplate.js` | UPDATED | Auto-injects `{c}` currency symbol |
+Individual game groups within Cosmos Casino can be enabled or disabled independently at runtime via the HTTP control API, without restarting the server or affecting other games.
 
+### Feature Groups
+
+| Feature | Commands included |
+|---|---|
+| `spin` | `!spin`, `!jackpot`, `!balance`, `!perks`, `!ctop` |
+| `dice` | `!dice` |
+| `duel` | `!duel`, `!accept`, `!decline`, `!shield` |
+| `box` | `!box` |
+| `daily` | `!daily` |
+| `blackjack` | `!bj`, `!bjconfirm`, `!hit`, `!stand` |
+
+Utility commands (`!balance`, `!perks`, `!ctop`, `!jackpot`) are grouped with **spin** because they display information about the main economy — disabling spin also hides the leaderboard and jackpot info. Shield is grouped with **duel** because it only exists to protect against duels.
+
+### HTTP API
+
+| Endpoint | Description |
+|---|---|
+| `GET /cosmos/features` | Snapshot of all feature flags |
+| `GET /cosmos/features/enable-all` | Enable every feature group |
+| `GET /cosmos/features/disable-all` | Disable every feature group |
+| `GET /cosmos/feature/<name>/enable` | Enable a single feature (e.g. `/cosmos/feature/spin/enable`) |
+| `GET /cosmos/feature/<name>/disable` | Disable a single feature |
+| `GET /cosmos/feature/<name>/status` | Check whether a feature is enabled |
+
+Valid feature names: `spin`, `dice`, `duel`, `box`, `daily`, `blackjack`.
+
+Example response for `/cosmos/features`:
+```json
+{
+  "features": {
+    "spin":      true,
+    "dice":      true,
+    "duel":      false,
+    "box":       true,
+    "daily":     true,
+    "blackjack": true
+  }
+}
+```
+
+### Startup Defaults
+
+Default values live in `cosmosConfig.js` under the `features` block:
+
+```js
+features: {
+  spin:      true,
+  dice:      true,
+  duel:      true,
+  box:       true,
+  daily:     true,
+  blackjack: true,
+},
+```
+
+Change any value to `false` to disable that group at startup without needing an HTTP call.
+
+### Architecture
+
+The feature gate sits in the middleware pipeline between the casino-wide enable guard and the bot-throttle guard:
+
+```
+safeExecution → logging → cosmosEnabled → featureEnabled → botThrottle → cooldown → handler
+```
+
+Each command carries a `feature` property (stamped by `cosmosModule.js` at registration time). `createFeatureMiddleware` reads `ctx.meta.feature` and queries `isFeatureEnabled()` from `state.js`. Commands with no feature tag always pass through.
+
+### Programmatic control (from other game code)
+
+```js
+cosmosGame.setFeature('blackjack', false);   // disable blackjack
+cosmosGame.setFeature('spin', true);         // re-enable spin group
+cosmosGame.disableAllFeatures();             // kill everything
+cosmosGame.enableAllFeatures();              // restore everything
+```

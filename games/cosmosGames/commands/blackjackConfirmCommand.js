@@ -1,12 +1,12 @@
 import { _startGame } from './blackjackCommand.js';
-
+import { gameConfigCosmos } from './../cosmosConfig.js';
 /**
  * !bjconfirm
  * Sent by the dealer/opponent to accept the blackjack challenge and start dealing.
  */
 export const blackjackConfirmCommand = {
   name: 'bjconfirm',
-  aliases: new Set(['!bjconfirm', '!bjyes', '!bjтак']),
+  aliases: gameConfigCosmos.commands.bjconfirm,
 
   async execute(ctx) {
     const { user, reply, services } = ctx;

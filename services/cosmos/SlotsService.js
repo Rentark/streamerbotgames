@@ -57,7 +57,7 @@ export class SlotsService {
     const adjusted = entries.map(([key, p]) => ({
       key,
       payout: p,
-      weight: p.mult === 0 ? p.weight / luck : p.weight * luck,
+      weight: p.mult === 0 ? p.weight : p.weight * luck,
     }));
 
     const total = adjusted.reduce((s, e) => s + e.weight, 0);

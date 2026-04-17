@@ -90,42 +90,43 @@ function startControlServer() {
   );
 
   const server = http.createServer(async (req, res) => {
-    // Enable CORS
-    // res.setHeader('Access-Control-Allow-Origin', '*');
-    // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    // res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-
-    if (req.method === 'OPTIONS') {
-      res.writeHead(200);
-      res.end();
-      return;
-    }
-
+    if (req.method === 'OPTIONS') { res.writeHead(200); res.end(); return; }
+   
     try {
-      const url = new URL(req.url, `http://127.0.0.1:3001`);
-      const path = url.pathname;
+      const url    = new URL(req.url, `http://127.0.0.1:3001`);
+      const path   = url.pathname;
       const method = req.method;
-
+   
       logger.info('Request received', { url, path, method });
-
-      // Route to handler if exists
-      if (method === 'GET' && routes[path]) {
-        await routes[path](req, res).catch(error => {
-          logger.error('Error in route handler', { error, path });
-          res.writeHead(500, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ error: 'Internal server error' }));
-        });
-        return;
+   
+      if (method === 'GET') {
+        // 1. Static route
+        if (routes[path]) {
+          await routes[path](req, res).catch(error => {
+            logger.error('Error in route handler', { error, path });
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Internal server error' }));
+          });
+          return;
+        }
+   
+        // 2. Dynamic cosmos feature route  ← NEW
+        //    Matches /cosmos/feature/<name>/enable|disable|status
+        const featureHandler = routes._resolveCosmosFeature?.(path);
+        if (featureHandler) {
+          await featureHandler(req, res).catch(error => {
+            logger.error('Error in feature route handler', { error, path });
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Internal server error' }));
+          });
+          return;
+        }
       }
-
+   
       res.writeHead(404, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: 'Not found' }));
     } catch (error) {
-      logger.error('Error handling HTTP request', {
-        message: error?.message,
-        stack: error?.stack,
-        name: error?.name
-      });
+      logger.error('Error handling HTTP request', { message: error?.message, stack: error?.stack });
       res.writeHead(500, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: 'Internal server error' }));
     }

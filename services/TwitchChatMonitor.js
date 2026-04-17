@@ -254,12 +254,12 @@ export class TwitchChatMonitor {
     try {
       const message = data?.data?.message?.message?.trim();
       const username = data?.data?.message?.username;
-      const userRole = rolesMap[data?.data?.user?.role];
+      const userRole = rolesMap[data?.data?.user?.role] ?? 'user';
       const isSubscriber = data?.data?.user?.subscribed;
       const isFromSharedChatGuest = data?.data?.message?.isFromSharedChatGuest;
       const monthsSubscribed = data?.data?.user?.monthsSubscribed;
 
-      logger.info('Chat message received', { username, userRole, isSubscriber, isFromSharedChatGuest, monthsSubscribed, role:data?.data?.user?.role });
+      // logger.info('Chat message received', { username, userRole, isSubscriber, isFromSharedChatGuest, monthsSubscribed, role:data?.data?.user?.role });
       
       if (!message || !username) {
         return;

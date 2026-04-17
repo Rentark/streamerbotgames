@@ -25,9 +25,25 @@ export class CosmosMessageTemplate {
    */
   prepareMessage(template, context = {}) {
     if (!template) return '';
+    const c = this.currency;
+    const balanceFormatted = context.balance ? this.config.currencyFormat(context.balance) : null;
+    const minBetFormatted = context.minBet ? this.config.currencyFormat(context.minBet) : null;
+    const betFormatted = context.bet ? this.config.currencyFormat(context.bet) : null;
+    const amountFormatted = context.amount ? this.config.currencyFormat(context.amount) : null;
 
     // Inject currency symbol so every template can use {c}
-    const ctx = { c: this.currency, ...context };
+    const ctx = { balanceFormatted: balanceFormatted, minBetFormatted: minBetFormatted, betFormatted: betFormatted, amountFormatted: amountFormatted, ...context };
+
+    logger.info("FULL CONTEXT", ctx);
+
+    if (ctx.amount && ctx.result) ctx.result = ctx.result.replace(/\{(\w+)\}/g, (match, key) => {
+      const value = ctx[key];
+      if (value === undefined) {
+        logger.warn(`CosmosMessageTemplate: variable '{${key}}' not found in context`);
+        return match;
+      }
+      return String(value);
+    }); 
 
     return template.replace(/\{(\w+)\}/g, (match, key) => {
       const value = ctx[key];
@@ -66,7 +82,7 @@ export class CosmosMessageTemplate {
       xp:           player.xp,
       xpNext:       this.xpToNextLevel(player.level),
       luck:         this.effectiveLuck(player).toFixed(2),
-      shieldStatus: player.shield ? ' | 🛡️ Щит' : '',
+      shieldStatus: player.shield ? ' | moonos1Heart Щит' : '',
     });
   }
 
@@ -79,10 +95,10 @@ export class CosmosMessageTemplate {
 
   formatPerks(player) {
     const extras = [];
-    if (player.shield)      extras.push('🛡️ Щит активний');
-    if (player.level >= 20) extras.push('⚡ 2x XP');
-    if (player.level >= 30) extras.push('🌌 КОСМІЧНИЙ');
-    if (player.level >= 25) extras.push('📦 -50% ящик');
+    if (player.shield)      extras.push('moonos1Ban Щит активний');
+    if (player.level >= 20) extras.push('moonos1Sun 2x XP');
+    if (player.level >= 30) extras.push('moonos169 КОСМІЧНИЙ');
+    if (player.level >= 25) extras.push('moonos1Nyamnyam -50% зоряна скринька');
 
     return this.prepareMessage(this.config.messages.perks, {
       username: player.username,
@@ -97,7 +113,7 @@ export class CosmosMessageTemplate {
   formatLeaderboard(players) {
     if (!players?.length) return this.config.messages.noPlayers;
     const leaderboard = players
-      .map((p, i) => `${i + 1}. ${p.username} (${p.stardust} ${this.currency} Lvl${p.level})`)
+      .map((p, i) => `${i + 1}. ${p.username} (${p.xp} XP, Lvl${p.level})`)
       .join(' | ');
     return this.prepareMessage(this.config.messages.leaderboard, { leaderboard });
   }

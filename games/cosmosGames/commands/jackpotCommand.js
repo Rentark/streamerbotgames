@@ -1,6 +1,8 @@
+import { gameConfigCosmos } from './../cosmosConfig.js';
+
 export const jackpotCommand = {
   name: 'jackpot',
-  aliases: new Set(['!jackpot', '!джекпот', '!jp']),
+  aliases: gameConfigCosmos.commands.jackpot,
   cooldown: 10_000,
 
   async execute(ctx) {

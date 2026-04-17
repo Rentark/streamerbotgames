@@ -14,46 +14,27 @@ export const safeExecutionMiddleware = async (ctx, next) => {
       command: ctx.command,
       user: ctx.user
     });
-    // Silently swallow — individual commands can surface errors via ctx.reply if desired
   }
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
 // loggingMiddleware
-// Logs command start/end with timing. Lightweight — only fires when a matching
-// command is actually registered and reaching execution.
 // ─────────────────────────────────────────────────────────────────────────────
 export const loggingMiddleware = async (ctx, next) => {
   const start = Date.now();
-
-  logger.debug('CommandBus: command start', {
-    user: ctx.user,
-    command: ctx.command,
-    args: ctx.args
-  });
-
+  logger.debug('CommandBus: command start', { user: ctx.user, command: ctx.command, args: ctx.args });
   await next();
-
-  logger.debug('CommandBus: command end', {
-    user: ctx.user,
-    command: ctx.command,
-    durationMs: Date.now() - start
-  });
+  logger.debug('CommandBus: command end', { user: ctx.user, command: ctx.command, durationMs: Date.now() - start });
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
 // cooldownMiddleware
 // Per-user, per-command sliding cooldown based on ctx.meta.cooldown (ms).
-// Commands without a cooldown property are passed through immediately.
 // ─────────────────────────────────────────────────────────────────────────────
 
 /** @type {Map<string, number>} key → expiresAt */
 const cooldownStore = new Map();
 
-/**
- * Prune expired entries to prevent unbounded map growth on long-running processes.
- * Called lazily on each lookup.
- */
 function pruneCooldowns() {
   const now = Date.now();
   for (const [key, expiresAt] of cooldownStore.entries()) {
@@ -67,13 +48,13 @@ export const cooldownMiddleware = async (ctx, next) => {
 
   pruneCooldowns();
 
-  const key = `${user}:${command}`;
-  const now = Date.now();
+  const key      = `${user}:${command}`;
+  const now      = Date.now();
   const expiresAt = cooldownStore.get(key);
 
   if (expiresAt && now < expiresAt) {
     const remaining = Math.ceil((expiresAt - now) / 1000);
-    await reply?.(`/me @${user}, зачекай ще ${remaining}с ⏳`);
+    await reply?.(`/me @${user}, зачекай ще ${remaining}с`);
     return;
   }
 
@@ -83,12 +64,12 @@ export const cooldownMiddleware = async (ctx, next) => {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // createGameEnabledMiddleware
-// Factory — each game creates its own instance bound to its enable flag getter.
-// Silently drops the command when the game is disabled.
+// Factory — bound to a casino-wide enable flag getter.
+// Silently drops the command when the whole game is disabled.
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * @param {() => boolean} isEnabled - getter that returns current enabled state
+ * @param {() => boolean} isEnabled
  * @returns {Function} middleware
  */
 export const createGameEnabledMiddleware = (isEnabled) => async (ctx, next) => {
@@ -100,22 +81,50 @@ export const createGameEnabledMiddleware = (isEnabled) => async (ctx, next) => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// createBotThrottleMiddleware
-// Factory — each game creates its own instance bound to its canBotSpeak check.
-// Prevents the bot from being rate-limited by Twitch when multiple commands fire
-// in quick succession. Drops the reply (not the execution) when throttled.
+// createFeatureMiddleware
+// Factory — each feature group (spin, dice, duel, box, daily, blackjack) gets
+// its own instance.  Commands carry `ctx.meta.feature` (set at registration
+// time in cosmosModule.js); this middleware checks that specific flag.
+//
+// Silently drops the command when the feature is disabled.
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * @param {() => boolean} canSpeak - function returning true when bot may send a message
+ * @param {(feature: string) => boolean} isFeatureEnabled
+ *   Function that accepts a feature name and returns its current state.
+ * @returns {Function} middleware
+ */
+export const createFeatureMiddleware = (isFeatureEnabled) => async (ctx, next) => {
+  const feature = ctx.meta?.feature;
+
+  // If the command carries no feature tag it is always allowed through
+  // (e.g. future utility commands not yet categorised).
+  if (!feature) return next();
+
+  if (!isFeatureEnabled(feature)) {
+    logger.debug('CommandBus: command dropped — feature disabled', {
+      command: ctx.command,
+      feature,
+    });
+    return;
+  }
+
+  return next();
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// createBotThrottleMiddleware
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * @param {() => boolean} canSpeak
  * @returns {Function} middleware
  */
 export const createBotThrottleMiddleware = (canSpeak) => async (ctx, next) => {
-  // Replace ctx.reply with a throttled version
   const originalReply = ctx.reply;
   ctx.reply = async (message) => {
     if (!canSpeak()) {
-      logger.debug('CommandBus: reply throttled by bot message limit', { command: ctx.command });
+      logger.debug('CommandBus: reply throttled', { command: ctx.command });
       return;
     }
     return originalReply(message);

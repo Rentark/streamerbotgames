@@ -1,6 +1,8 @@
+import { gameConfigCosmos } from './../cosmosConfig.js';
+
 export const duelDeclineCommand = {
   name: 'duelDecline',
-  aliases: new Set(['!decline', '!відхилити']),
+  aliases: gameConfigCosmos.commands.duelDecline,
 
   async execute(ctx) {
     const { user, reply, services } = ctx;

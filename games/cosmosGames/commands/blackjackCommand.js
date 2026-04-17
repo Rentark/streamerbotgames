@@ -1,6 +1,7 @@
 import { parseAmount } from '../../../utils/parseAmount.js';
 import { calcXp }      from '../../../utils/calcXp.js';
 import { normalizeUsername } from '../state.js';
+import { gameConfigCosmos } from './../cosmosConfig.js';
 
 /**
  * !bj <bet|%|all>          → Mode A: pick random chatter as dealer
@@ -16,7 +17,7 @@ import { normalizeUsername } from '../state.js';
  */
 export const blackjackCommand = {
   name: 'blackjack',
-  aliases: new Set(['!bj', '!blackjack', '!блекджек']),
+  aliases: gameConfigCosmos.commands.blackjack,
   cooldown: 0,
 
   async execute(ctx) {
@@ -40,9 +41,11 @@ export const blackjackCommand = {
     }
 
     const fetchBal = () => messageService.getStreamElementsPoints(user);
-    const bet = await parseAmount(betArg, fetchBal);
+    let bet = await parseAmount(betArg, fetchBal);
 
-    if (!bet || bet < bjCfg.minBet || bet > bjCfg.maxBet) {
+    if (!bet) bet = bjCfg.minBet;
+
+    if (bet < bjCfg.minBet || bet > bjCfg.maxBet) {
       return reply(template.prepareMessage(config.messages.bjInvalidBet, {
         username: user, minBet: bjCfg.minBet, maxBet: bjCfg.maxBet
       }));
